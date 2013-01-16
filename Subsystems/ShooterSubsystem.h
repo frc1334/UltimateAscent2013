@@ -7,9 +7,11 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
+    Jaguar shootMotor, panMotor;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();
+  void Shoot(float power);
 };
 
 #endif
