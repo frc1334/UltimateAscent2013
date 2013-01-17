@@ -6,9 +6,11 @@
 class OI
 {
 private:
-
+  Joystick* up, down;
 public:
   OI();
+  inline float getLeftBumper();
+  inline float getRightBumper();
 };
 
 #endif
