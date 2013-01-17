@@ -15,6 +15,6 @@ void DriveTrainSubsystem::InitDefaultCommand()
 
 void DriveTrainSubsystem::Drive(float Left, float Right)
 {
-	RightMotor.Set(Left);
-	LeftMotor.Set(Right);
+	RightMotor.Set(Right);
+	LeftMotor.Set(Left);
 }
