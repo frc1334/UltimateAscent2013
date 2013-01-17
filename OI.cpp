@@ -2,5 +2,6 @@
 #include "Robotmap.h"
 
 OI::OI()
-A(JOYSTICK_A);
+{
+
 }

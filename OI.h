@@ -6,12 +6,10 @@
 class OI
 {
 private:
-    Joystick A;
+    Joystick Joystick_A;
 public:
-  OI();
-    inline float GetArmWork()
-    { return A.GetY(); }
-
+    OI();
+    inline float getDrive(){return Joystick_A.GetY();};
 };
 
 #endif
