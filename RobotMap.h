@@ -8,6 +8,8 @@
 
 #define JOYSTICK_A                    1
 
+#define TEST_CODER                    1
+
 
 
 
