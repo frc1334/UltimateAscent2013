@@ -1,16 +1,16 @@
 #include "DriveTrainSubsystem.h"
 #include "../Robotmap.h"
+#include "../Commands/AutonomousCommand.h"
 
 
-
-DriveTrainSubsystem::DriveTrainSubsystem() : Subsystem("DriveTrainSubsystem")
+DriveTrainSubsystem::DriveTrainSubsystem() : Subsystem("DriveTrainSubsystem"),
     LeftMotor(LEFT_MOTOR),RightMotor(RIGHT_MOTOR)
 {
 }
 
 void DriveTrainSubsystem::InitDefaultCommand()
 {
-    SetDefault(NewCommand());
+    SetDefaultCommand(new AutonomousCommand());
 }
 
 void DriveTrainSubsystem::Drive(float Left, float Right)

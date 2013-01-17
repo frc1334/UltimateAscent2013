@@ -8,7 +8,7 @@
 
 #define JOYSTICK_A                    1
 
-#define TEST_CODER                    1
+#define ANALOGCHANNEL_POT                    1
 
 
 

@@ -1,7 +1,9 @@
 #include "OI.h"
 #include "Robotmap.h"
 
-OI::OI()
+OI::OI():
+Joystick_A(JOYSTICK_A)
+	 
 {
 
 }
