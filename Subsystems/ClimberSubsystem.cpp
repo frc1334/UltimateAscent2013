@@ -14,7 +14,11 @@ void ClimberSubsystem::ClimbUp(int barsUp)
 {
 
 }
-void ClimberSubsystem::ClimbDown(int barsDown)
+void ClimberSubsystem::DeployDown()
 {
-	if(Joystick.
+	
+}
+void ClimberSubsystem::DeployUp()
+{
+
 }

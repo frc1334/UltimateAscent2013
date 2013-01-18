@@ -2,14 +2,14 @@
 
 OI::OI()
 {
-	up = new Joystick(RobotMap::BUTTON_6);
-	down = new Joystick(RobotMap::BUTTON_5);
+	up = new Joystick(RobotMap::BUTTON_1);
+	deploy = new Joystick(RobotMap::BUTTON_4);
 }
-inline float OI::getLeftBumper()
+inline float OI::getAButton()
 {
-  return up->GetRawButton(5);
+  return up->GetRawButton(1);
 }
-inline float OI::getRightBumper()
+inline float OI::getYButton()
 {
-  return down->GetRawButton(6);
+  return deploy->GetRawButton(4);
 }

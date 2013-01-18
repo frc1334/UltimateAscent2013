@@ -6,11 +6,11 @@
 class OI
 {
 private:
-  Joystick* up, down;
+  Joystick* up, deploy;
 public:
   OI();
-  inline float getLeftBumper();
-  inline float getRightBumper();
+  inline float getAButton();
+  inline float getYButton();
 };
 
 #endif

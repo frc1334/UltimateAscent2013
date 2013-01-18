@@ -12,7 +12,8 @@ public:
   ClimberSubsystem();
   void InitDefaultCommand();
   void ClimbUp(int barsUp);
-  void ClimbDown(int barsDown);
+  void DeployDown();
+  void DeployUp();
 };
 
 #endif
