@@ -2,8 +2,10 @@
 #define ROBOTMAP_H
 
 
-#define LEFT_MOTOR                    1
-#define RIGHT_MOTOR                   2
+#define LEFT_FRONT_MOTOR              1
+#define RIGHT_FRONT_MOTOR             2
+#define LEFT_BACK_MOTOR				  3
+#define RIGHT_BACK_MOTOR			  5
 #define PID_LOOP_ARM_MOTOR            4
 
 #define JOYSTICK_A                    1

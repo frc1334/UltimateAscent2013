@@ -4,7 +4,7 @@
 
 
 DriveTrainSubsystem::DriveTrainSubsystem() : Subsystem("DriveTrainSubsystem"),
-    LeftMotor(LEFT_MOTOR),RightMotor(RIGHT_MOTOR)
+    LeftFrontMotor(LEFT_FRONT_MOTOR),RightFrontMotor(RIGHT_FRONT_MOTOR),LeftBackMotor(LEFT_BACK_MOTOR),RightBackMotor(RIGHT_BACK_MOTOR)
 {
 }
 
@@ -15,6 +15,8 @@ void DriveTrainSubsystem::InitDefaultCommand()
 
 void DriveTrainSubsystem::Drive(float Left, float Right)
 {
-	RightMotor.Set(Right);
-	LeftMotor.Set(Left);
+	RightFrontMotor.Set(Right);
+	RightBackMotor.Set(Right);
+	LeftBackMotor.Set(Left);
+	LeftFrontMotor.Set(Left);
 }
