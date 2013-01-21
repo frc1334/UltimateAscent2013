@@ -11,7 +11,7 @@ void ShooterSubsystem::InitDefaultCommand()
   SetDefaultCommand(new ShooterSubsystem());
 }
 
-void DriveTrainSubsystem::Shoot(float power)
+void ShooterSubsystem::Shoot(float power)
 {
 	shootMotor.Set(power);
 }
