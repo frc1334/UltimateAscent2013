@@ -8,7 +8,7 @@
 class DrivetrainPIDSubsystem: public PIDSubsystem
 {
 private:
-    Jaguar PIDMotor;
+	Jaguar LeftFrontMotor, RightFrontMotor, LeftBackMotor, RightBackMotor;
     MA3Encoder PIDCoder;
 public:
     DrivetrainPIDSubsystem();
