@@ -1,15 +1,15 @@
- #ifndef ROBOTMAP_H
+#ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
 
-#define LEFT_FRONT_MOTOR              1
-#define RIGHT_FRONT_MOTOR             2
-#define LEFT_BACK_MOTOR				  3
-#define RIGHT_BACK_MOTOR			  4
+#define LEFT_MOTOR              1
+#define RIGHT_MOTOR             2
+
 
 #define JOYSTICK_A                    1
 
-#define ANALOGCHANNEL_POT                    1
+#define ANALOGCHANNEL_POT_LEFT        1
+#define ANALOGCHANNEL_POT_RIGHT       2
 
 
 

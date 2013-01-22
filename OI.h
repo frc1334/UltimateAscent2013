@@ -9,7 +9,7 @@ private:
     Joystick Joystick_A;
 public:
     OI();
-    inline float getDrive(){return Joystick_A.GetY();};
+    inline float getDrive(){return Joystick_A.GetY();}
 };
 
 #endif

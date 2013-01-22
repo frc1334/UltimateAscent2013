@@ -2,13 +2,14 @@
 #include "../Robotmap.h"
 
 
-Drivetrainubsystem::DrivetrainSubsystem() : PIDSubsystem("DrivetrainPIDSubsystem", 0, 0, 0),
-LeftFrontMotor(LEFT_FRONT_MOTOR),RightFrontMotor(RIGHT_FRONT_MOTOR),LeftBackMotor(LEFT_BACK_MOTOR),RightBackMotor(RIGHT_BACK_MOTOR), PIDCoder(ANALOGCHANNEL_POT)
+DrivetrainSubsystem::DrivetrainSubsystem():Subsystem("DrivetrainPIDSubsystem"),
+LeftMotor(LEFT_FRONT_MOTOR),RightMotor(RIGHT_FRONT_MOTOR), PIDCoderLeft(ANALOGCHANNEL_POT_LEFT),  PIDCoderRight(ANALOGCHANNEL_POT_RIGHT),
+LeftController(0, 0, 0, &PIDCoderLeft, &LeftMotor), RightController(0, 0, 0, &PIDCoderRight, &RightMotor)
 {
 	SetSetpoint(0);
 	SetInputRange(0, 0);
+
+	
 	Enable();
-};
-
-
+}
  
