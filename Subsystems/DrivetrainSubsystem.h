@@ -5,15 +5,18 @@
 
 
 
-class DrivetrainSubsystem: public PIDSubsystem
+class DrivetrainSubsystem: public Subsystem
 {
-private:
-	PIDController LeftController, RightController; 
+private:		
+	
 	Jaguar LeftMotor, RightMotor;
 	AnalogChannel PIDCoderLeft, PIDCoderRight;
+	PIDController LeftController, RightController; 
+
+	
 public:
     DrivetrainSubsystem();
-    double ReturnPIDInput() = 0;
+    void InitDefaultCommand();
     void UsePIDOutput(double output);
     void Drive(float speed, float turn);
 };
