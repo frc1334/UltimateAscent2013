@@ -18,8 +18,8 @@ void DriveTrainSubsystem::InitDefaultCommand()
 void DriveTrainSubsystem::Drive(float speed, float turn)
 {
 	
-	LeftController.SetSetpoint(speed + turn);
-	RightController.SetSetpoint(turn - speed);
+  LeftController.SetSetpoint((speed + turn) * .99); // limit the output, as without this, jaguars can blow their breakers
+  RightController.SetSetpoint((speed - turn) * .99);
 }
 
 
