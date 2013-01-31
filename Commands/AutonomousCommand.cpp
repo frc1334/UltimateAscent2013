@@ -1,17 +1,28 @@
-#ifndef AUTONOMOUS_COMMAND_H
-#define AUTONOMOUS_COMMAND_H
+#include "../Commands/AutonomousCommand.h"
 
-#include "../CommandBase.h"
 
-class AutonomousCommand: public CommandBase
+AutonomousCommand::AutonomousCommand()
 {
-public:
-  AutonomousCommand();
-  virtual void Initialize();
-  virtual void Execute();
-  virtual bool IsFinished();
-  virtual void End();
-  virtual void Interrupted();
-};
+  // Use Requires() here to declare subsystem dependencies
+}
 
-#endif
+void AutonomousCommand::Initialize()
+{
+}
+
+void AutonomousCommand::Execute()
+{
+}
+
+bool AutonomousCommand::IsFinished()
+{
+  return false;
+}
+
+void AutonomousCommand::End()
+{
+}
+
+void AutonomousCommand::Interrupted()
+{
+}
