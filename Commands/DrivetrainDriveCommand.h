@@ -8,10 +8,10 @@
  *
  * @author p
  */
-class DrivetrainDrive: public CommandBase
+class DrivetrainDriveCommand: public CommandBase
 {
 public:
-	DrivetrainDrive();
+	DrivetrainDriveCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
