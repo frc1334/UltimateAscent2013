@@ -1,9 +1,7 @@
 #include "OI.h"
 #include "Robotmap.h"
 
-OI::OI():
-Joystick_A(JOYSTICK_A)
-	 
+OI::OI() : Joystick_Drive(JOYSTICK_DRIVE)
 {
 
 }
