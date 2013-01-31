@@ -1,5 +1,5 @@
 #include "DrivetrainSubsystem.h"
-#include "DrivetrainDrive.h"
+#include "../Commands/DrivetrainDriveCommand.h"
 #include "../Robotmap.h"
 #include "WPILib.h"
 
@@ -10,7 +10,7 @@ LeftMotor(LEFT_MOTOR), RightMotor(RIGHT_MOTOR)
 
 void DrivetrainSubsystem::InitDefaultCommand()
 {
-  SetDefaultCommand(new DrivetrainDrive());
+  SetDefaultCommand(new DrivetrainDriveCommand());
 }
 
 void DrivetrainSubsystem::Drive(float speed, float turn)
