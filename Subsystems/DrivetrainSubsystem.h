@@ -3,21 +3,13 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-
-
-class DrivetrainSubsystem: public Subsystem
+class DrivetrainSubsystem : public Subsystem
 {
-private:		
-	
-	Jaguar LeftMotor, RightMotor;
-	AnalogChannel PIDCoderLeft, PIDCoderRight;
-	PIDController LeftController, RightController; 
-
-	
+private:
+	Jaguar LeftMotor, RightMotor; 
 public:
     DrivetrainSubsystem();
     void InitDefaultCommand();
-    void UsePIDOutput(double output);
     void Drive(float speed, float turn);
 };
     

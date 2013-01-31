@@ -9,9 +9,11 @@ CommandBase::CommandBase() : Command()
 {
 }
 
+DrivetrainSubsystem* CommandBase::drivetrainsubsystem = NULL;
 OI* CommandBase::oi = NULL;
 
 void CommandBase::init()
 {
   oi = new OI();
+  drivetrainsubsystem = new DrivetrainSubsystem();
 }

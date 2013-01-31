@@ -1,6 +1,7 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
+#include "Subsystems/DrivetrainSubsystem.h"
 #include "Commands/Command.h"
 #include "OI.h"
 
@@ -11,6 +12,7 @@ public:
   CommandBase();
   static void init();
 
+  static DrivetrainSubsystem *drivetrainsubsystem;
   static OI *oi;
 };
 
