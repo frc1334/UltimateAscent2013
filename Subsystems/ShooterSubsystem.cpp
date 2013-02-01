@@ -1,5 +1,6 @@
 #include "ShooterSubsystem.h"
 #include "../Robotmap.h"
+#include "../Utility.h"
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT),
@@ -13,8 +14,8 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	shootEncoder.Start();
 	tiltEncoderLeft.SetPIDSourceParameter(Encoder::kDistance);
 	tiltEncoderRight.SetPIDSourceParameter(Encoder::kDistance);
-	tiltMotorLeftLoop.SetInputRange(0, 2000); // this will be set to min/max angle of the shooter
-	tiltMotorRightLoop.SetInputRange(0, 2000);
+	tiltMotorLeftLoop.SetInputRange(0, tiltTravel);
+	tiltMotorRightLoop.SetInputRange(0, tiltTravel);
 	shootLoop.SetInputRange(0.0f, 0.0f);
 	tiltMotorLeftLoop.SetOutputRange(-1.0f, 1.0f);
 	tiltMotorRightLoop.SetOutputRange(-1.0f, 1.0f);
@@ -43,6 +44,7 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
+	degreesTilt = Utility::Map(20, 50, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
 	tiltMotorLeftLoop.SetSetpoint(degreesTilt);
 	tiltMotorRightLoop.SetSetpoint(degreesTilt);
 }
