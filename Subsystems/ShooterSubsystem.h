@@ -7,7 +7,7 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
-  static const float tiltP = 0.0;
+  static const float tiltP = 1.0;
   static const float tiltI = 0.0;
   static const float tiltD = 0.0;
 
@@ -20,6 +20,7 @@ public:
   void SetTilt(float tilt);
   void SetSpeed(float speed);
   void FireDisc();
+  void debug();
 };
 
 #endif
