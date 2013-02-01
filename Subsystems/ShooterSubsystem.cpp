@@ -1,14 +1,15 @@
 #include "ShooterSubsystem.h"
+#include "../Commands/ShooterControlCommand.h"
 #include "../Robotmap.h"
 #include "../Utility.h"
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
- shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT),
+ shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT), shootEncoder(SHOOT_ENCODER),
  tiltEncoderLeft(TILT_ENCODER_LEFT_A, TILT_ENCODER_LEFT_B), tiltEncoderRight(TILT_ENCODER_RIGHT_A, TILT_ENCODER_RIGHT_B),
  tiltMotorLeftLoop(tiltP, tiltI, tiltD, &tiltEncoderLeft, &tiltMotorLeft),
  tiltMotorRightLoop(tiltP, tiltI, tiltD, &tiltEncoderRight, &tiltMotorRight),
+ shootLoop(shootP, shootI, shootD, this, &shootMotor),
  tiltSwitchLeft(TILT_SWITCH_LEFT), tiltSwitchRight(TILT_SWITCH_RIGHT),
- shootEncoder(SHOOT_ENCODER), shootLoop(shootP, shootI, shootD, this, &shootMotor),
  shootSolenoid(SHOOT_SOLENOID)
 {
 	shootEncoder.Start();
@@ -21,6 +22,11 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	tiltMotorRightLoop.SetOutputRange(-1.0f, 1.0f);
 	shootLoop.SetOutputRange(0.0f, 0.0f);
 	shootLoop.Enable();
+}
+
+void ShooterSubsystem::InitDefaultCommand()
+{
+	SetDefaultCommand(new ShooterControlCommand());
 }
 
 void ShooterSubsystem::Reset()

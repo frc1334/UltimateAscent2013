@@ -23,6 +23,7 @@ private:
   Solenoid shootSolenoid;
 public:
   ShooterSubsystem();
+  void InitDefaultCommand();
   void SetTilt(float degreesTilt);
   void SetSpeed(float speed);
   void SetFire(bool fire);
