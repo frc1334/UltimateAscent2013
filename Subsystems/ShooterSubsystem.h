@@ -7,11 +7,19 @@
 class ShooterSubsystem: public Subsystem
 {
 private:
-    Jaguar shootMotor, panMotor;
+  static const float tiltP = 0.0;
+  static const float tiltI = 0.0;
+  static const float tiltD = 0.0;
+
+  Jaguar shootMotor, tiltMotorLeft, tiltMotorRight;
+  Encoder tiltEncoderLeft, tiltEncoderRight;
+  PIDController tiltMotorLeftLoop, tiltMotorRightLoop;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();
-  void Shoot(float power);
+  void SetTilt(float tilt);
+  void SetSpeed(float speed);
+  void FireDisc();
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define COMMAND_BASE_H
 
 #include "Commands/Command.h"
+#include "Subsystems/ShooterSubsystem.h"
 #include "OI.h"
 
 class CommandBase : public Command
@@ -12,6 +13,7 @@ public:
   static void init();
 
   static OI *oi;
+  static ShooterSubsystem *shootersubsystem;
 };
 
 #endif
