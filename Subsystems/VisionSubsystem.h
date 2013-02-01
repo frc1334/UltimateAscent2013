@@ -7,6 +7,7 @@
 class VisionSubsystem: public Subsystem
 {
 private:
+	AxisCamera camera;
 public:
   VisionSubsystem();
   void InitDefaultCommand();
