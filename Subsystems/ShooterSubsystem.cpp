@@ -71,3 +71,11 @@ void ShooterSubsystem::SetFire(bool fire)
 {
 	shootSolenoid.Set(fire);
 }
+
+void ShooterSubsystem::SetShooting(bool enabled)
+{
+	if (enabled)
+		shootLoop.Enable();
+	else
+		shootLoop.Disable();
+}
