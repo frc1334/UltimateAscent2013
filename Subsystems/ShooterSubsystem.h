@@ -22,6 +22,9 @@ private:
   DigitalInput tiltSwitchLeft, tiltSwitchRight;
   Solenoid shootSolenoid;
 public:
+  static const int minDegrees = 20;
+  static const int maxDegrees = 50;
+  
   ShooterSubsystem();
   void InitDefaultCommand();
   void SetTilt(float degreesTilt);

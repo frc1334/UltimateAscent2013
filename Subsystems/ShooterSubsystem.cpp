@@ -52,7 +52,7 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
-	degreesTilt = Utility::Map(20, 50, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
+	degreesTilt = Utility::Map(minDegrees, maxDegrees, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
 	tiltMotorLeftLoop.SetSetpoint(degreesTilt);
 	tiltMotorRightLoop.SetSetpoint(degreesTilt);
 }
