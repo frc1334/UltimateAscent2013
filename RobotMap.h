@@ -13,7 +13,7 @@
 
 #define SHOOT_MOTOR                   1
 #define TILT_MOTOR_LEFT               2
-#define TILT_MOTOR_RIGHT              2
+#define TILT_MOTOR_RIGHT              3
 #define TILT_ENCODER_LEFT_A           1
 #define TILT_ENCODER_LEFT_B           2
 #define TILT_ENCODER_RIGHT_A          3

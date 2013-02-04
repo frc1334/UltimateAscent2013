@@ -13,7 +13,7 @@ private:
   static const float shootP = 1.0f;
   static const float shootI = 0.0f;
   static const float shootD = 0.0f;
-  static const float tiltTravel = 42; // dummy value
+  static const float tiltTravel = 400; // dummy value
 
   Jaguar shootMotor, tiltMotorLeft, tiltMotorRight;
   GearTooth shootEncoder;

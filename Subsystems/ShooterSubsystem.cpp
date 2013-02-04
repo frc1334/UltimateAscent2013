@@ -21,7 +21,9 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	tiltMotorLeftLoop.SetOutputRange(-1.0f, 1.0f);
 	tiltMotorRightLoop.SetOutputRange(-1.0f, 1.0f);
 	shootLoop.SetOutputRange(0.0f, 0.0f);
+	SetSpeed(300);
 	shootLoop.Enable();
+	tiltMotorLeftLoop.Enable();
 }
 
 void ShooterSubsystem::InitDefaultCommand()
