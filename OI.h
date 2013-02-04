@@ -7,6 +7,7 @@ class OI
 {
 private:
   Joystick* up, deploy;
+};
 public:
   OI();
   inline float getAButton();

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="UltimateAscent2013" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libUltimateAscent2013" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Debug\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libUltimateAscent2013" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Release\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="C:\windriver\WPILib\WPILibC++Source20130103rev3589\WPILib" />
+		</Compiler>
+		<Unit filename="CommandBase.cpp" />
+		<Unit filename="CommandBase.h" />
+		<Unit filename="Commands\AutonomousCommand.cpp" />
+		<Unit filename="Commands\AutonomousCommand.h" />
+		<Unit filename="OI.cpp" />
+		<Unit filename="OI.h" />
+		<Unit filename="RobotMap.h" />
+		<Unit filename="Subsystems\ClimberSubsystem.cpp" />
+		<Unit filename="Subsystems\ClimberSubsystem.h" />
+		<Unit filename="Subsystems\DriveTrainSubsystem.cpp" />
+		<Unit filename="Subsystems\DriveTrainSubsystem.h" />
+		<Unit filename="Subsystems\ShooterSubsystem.cpp" />
+		<Unit filename="Subsystems\ShooterSubsystem.h" />
+		<Unit filename="Subsystems\VisionSubsystem.cpp" />
+		<Unit filename="Subsystems\VisionSubsystem.h" />
+		<Unit filename="UltimateAscentBot.cpp" />
+		<Extensions>
+			<code_completion>
+				<search_path add="C:\WindRiver\WPILib\WPILibC++Source20130103rev3589\WPILib" />
+			</code_completion>
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

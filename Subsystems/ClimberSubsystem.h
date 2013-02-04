@@ -3,17 +3,24 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "Joystick.cpp"
+//#include "Joystick.cpp"
 
 class ClimberSubsystem: public Subsystem
 {
 private:
+    AnalogChannel leftanalogchannel;
+    Talon leftClimbMotor;
+    Talon rightClimbMotor;
+    AnalogChannel rightanalogchannel;
+    PIDController left;
+    PIDController right;
+
+};
 public:
   ClimberSubsystem();
   void InitDefaultCommand();
-  void ClimbUp(int barsUp);
-  void DeployDown();
-  void DeployUp();
+  double returnPIDInput();
+  int usePIDOutput(double output);
 };
 
 #endif
