@@ -10,10 +10,12 @@ private:
 public:
   OI();
   
-  inline bool ButtonGet()
-  { return Joystick_shoot.GetTop ();}
   inline float GetTrigger()
-  {return Joystick_shoot.GetZ();}
+  { return Joystick_shoot.GetZ(); }
+  inline bool GetLeftBumper()
+  { return Joystick_shoot.GetRawButton(5); }
+  inline bool GetRightBumper()
+  { return Joystick_shoot.GetRawButton(6); }
 };
 
 #endif
