@@ -13,7 +13,7 @@ private:
   static const float shootP = 1.0f;
   static const float shootI = 0.0f;
   static const float shootD = 0.0f;
-  static const float tiltTravel = 42; // dummy value
+  static const float tiltTravel = 400; // dummy value
 
   Jaguar shootMotor, tiltMotorLeft, tiltMotorRight;
   GearTooth shootEncoder;
@@ -22,12 +22,17 @@ private:
   DigitalInput tiltSwitchLeft, tiltSwitchRight;
   Solenoid shootSolenoid;
 public:
+  static const int minDegrees = 20;
+  static const int maxDegrees = 50;
+  
   ShooterSubsystem();
   void InitDefaultCommand();
   void SetTilt(float degreesTilt);
   void SetSpeed(float speed);
   void SetFire(bool fire);
   void Setshoot(bool shoot);
+  bool GetShooting();
+  void SetShooting(bool enabled);
   void Reset();
   double PIDGet();
 };

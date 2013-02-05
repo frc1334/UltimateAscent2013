@@ -21,7 +21,9 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	tiltMotorLeftLoop.SetOutputRange(-1.0f, 1.0f);
 	tiltMotorRightLoop.SetOutputRange(-1.0f, 1.0f);
 	shootLoop.SetOutputRange(0.0f, 0.0f);
+	SetSpeed(300);
 	shootLoop.Enable();
+	tiltMotorLeftLoop.Enable();
 }
 
 void ShooterSubsystem::InitDefaultCommand()
@@ -50,7 +52,7 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
-	degreesTilt = Utility::Map(20, 50, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
+	degreesTilt = Utility::Map(minDegrees, maxDegrees, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
 	tiltMotorLeftLoop.SetSetpoint(degreesTilt);
 	tiltMotorRightLoop.SetSetpoint(degreesTilt);
 }
@@ -70,6 +72,15 @@ void ShooterSubsystem::SetFire(bool fire)
 	shootSolenoid.Set(fire);
 }
 
-void ShooterSubsystem::SetShoot()
+void ShooterSubsystem::SetShooting(bool enabled)
 {
+	if (enabled)
+		shootLoop.Enable();
+	else
+		shootLoop.Disable();
+}
+
+bool ShooterSubsystem::GetShooting()
+{
+	return shootLoop.IsEnabled();
 }

@@ -4,9 +4,12 @@
 class UltimateAscentBot : public IterativeRobot
 {
 private:
+	LiveWindow *lw;
   virtual void RobotInit()
   {
     CommandBase::init();
+    lw = LiveWindow::GetInstance();
+    SmartDashboard::init();
   }
 
   virtual void AutonomousInit()
@@ -24,6 +27,10 @@ private:
   virtual void TeleopPeriodic()
   {
     Scheduler::GetInstance()->Run();
+  }
+  virtual void TestPeriodic()
+  {
+	  lw->Run();
   }
 };
 
