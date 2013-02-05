@@ -5,6 +5,9 @@
  
 class ShooterControlCommand: public CommandBase
 {
+private:
+	bool TriggerPressed = false;
+	bool TriggerPressedPre = false;
 public:
 	ShooterControlCommand();
 	virtual void Initialize();

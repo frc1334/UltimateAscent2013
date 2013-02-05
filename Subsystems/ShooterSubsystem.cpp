@@ -69,3 +69,7 @@ void ShooterSubsystem::SetFire(bool fire)
 {
 	shootSolenoid.Set(fire);
 }
+
+void ShooterSubsystem::SetShoot()
+{
+}

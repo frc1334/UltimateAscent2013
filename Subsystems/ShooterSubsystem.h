@@ -27,6 +27,7 @@ public:
   void SetTilt(float degreesTilt);
   void SetSpeed(float speed);
   void SetFire(bool fire);
+  void Setshoot(bool shoot);
   void Reset();
   double PIDGet();
 };

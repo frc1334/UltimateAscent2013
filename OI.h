@@ -6,9 +6,12 @@
 class OI
 {
 private:
-
+	Joystick Joystick_shoot;
 public:
   OI();
+  
+  inline bool ButtonGet()
+  { return Joystick_shoot.GetTop ();}
 };
 
 #endif

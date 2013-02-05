@@ -23,7 +23,7 @@
 #define SHOOT_ENCODER				  7
 #define SHOOT_SOLENOID				  8
 
-#define LEFT_JOYSTICK                 1
-#define RIGHT_JOYSTICK                2
+#define JOYSTICK_SHOOT                 1
+
 
 #endif
