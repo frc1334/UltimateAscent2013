@@ -6,7 +6,7 @@
 class ShooterControlCommand: public CommandBase
 {
 private:
-	bool TriggerPressed, TriggerPressedPre, LeftBumperPre, RightBumperPre;
+	bool TriggerPressed, TriggerPressedPre, LeftBumperPre, RightBumperPre, FirePre;
 	float tilt;
 public:
 	ShooterControlCommand();
