@@ -12,6 +12,8 @@ public:
   
   inline bool ButtonGet()
   { return Joystick_shoot.GetTop ();}
+  inline float GetTrigger()
+  {return Joystick_shoot.GetZ();}
 };
 
 #endif

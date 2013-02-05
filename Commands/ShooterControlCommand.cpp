@@ -12,10 +12,10 @@ void ShooterControlCommand::Initialize()
  
 void ShooterControlCommand::Execute()
 {
-	 if (Joystick_Shoot.GetZ()> 90 && !TriggrtPressedPre)
+	 if (oi->GetTrigger() > 90 && !TriggerPressedPre)
 	 {
-		 TriggerPressed = ture;
-		 ShooterSubsystem.SetShooting(!ShooterSubsytem.GetShooting());
+		 TriggerPressed = true;
+		 shootersubsystem->SetShooting(!shootersubsystem->GetShooting());
 	 }
 	 
 	 TriggerPressed = TriggerPressedPre;
