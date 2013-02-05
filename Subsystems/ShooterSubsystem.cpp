@@ -79,3 +79,8 @@ void ShooterSubsystem::SetShooting(bool enabled)
 	else
 		shootLoop.Disable();
 }
+
+bool ShooterSubsystem::GetShooting()
+{
+	return shootLoop.IsEnabled();
+}
