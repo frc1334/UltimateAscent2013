@@ -6,12 +6,14 @@
 class OI
 {
 private:
-    Joystick Joystick_Drive;
+    Joystick Joystick_drive;
 public:
     OI();
     
-    inline float getDriveSteering() { return Joystick_Drive.GetX(); }
-    inline float getDriveThrottle() { return Joystick_Drive.GetZ(); }
+    inline float GetDriveSteering() { return Joystick_drive.GetX(); }
+    inline float GetDriveThrottle() { return Joystick_drive.GetZ(); }
+    inline bool GetShiftUp() { return Joystick_drive.GetRawButton(5); }
+    inline bool GetShiftDown() { return Joystick_drive.GetRawButton(6); }
 };
 
 #endif

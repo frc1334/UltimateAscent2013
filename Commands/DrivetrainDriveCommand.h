@@ -10,6 +10,8 @@
  */
 class DrivetrainDriveCommand: public CommandBase
 {
+private:
+	bool shiftUpPre, shiftDownPre;
 public:
 	DrivetrainDriveCommand();
 	virtual void Initialize();

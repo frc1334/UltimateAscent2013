@@ -6,11 +6,13 @@
 class DrivetrainSubsystem : public Subsystem
 {
 private:
-	Jaguar LeftMotor, RightMotor; 
+	Jaguar LeftMotor, RightMotor;
+	Solenoid LeftSolenoid, RightSolenoid;
 public:
     DrivetrainSubsystem();
     void InitDefaultCommand();
     void Drive(float speed, float turn);
+    void SetShiftState(bool state);
 };
     
 	
