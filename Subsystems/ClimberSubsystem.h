@@ -7,6 +7,11 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
+	Talon leftMotor, rightMotor, tiltMotor;
+	Encoder leftEncoder, rightEncoder, tiltEncoder;
+	PIDController leftLoop, rightLoop, tiltLoop;
+	Solenoid leftSolenoid, rightSolenoid;
+	DigitalInput tiltSwitch, leftSwitch, rightSwitch;
 public:
   ClimberSubsystem();
   void InitDefaultCommand();

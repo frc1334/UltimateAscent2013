@@ -35,6 +35,8 @@
 #define CLIMB_SOLENOID_RIGHT          10
 #define CLIMB_LIMITSWITCH_LEFT        11
 #define CLIMB_LIMITSWITCH_RIGHT       12
+#define CLIMB_ENCODER_TILT_A          13
+#define CLIMB_ENCODER_TILT_B          14
 
 #define JOYSTICK_SHOOT                 1
 
