@@ -29,3 +29,32 @@ tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 void ClimberSubsystem::InitDefaultCommand()
 {
 }
+void ClimberSubsystem::SetPosition(int bar, bool tilt, float deg)
+{
+	if(bar == 0)
+	{
+		leftLoop.SetSetpoint(bar + 1);
+		rightLoop.SetSetpoint(bar + 1);
+	}
+	if(bar == 0 && tilt)
+	{
+		leftLoop.SetSetpoint(bar+1);
+		rightLoop.SetSetpoint(bar+1);
+		
+	}
+}
+int ClimberSubsystem::GetPosition()
+{
+	return currentBar;
+}
+bool ClimberSubsystem::IsAtTop()
+{
+	if(currentBar == 3)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
