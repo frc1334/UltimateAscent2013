@@ -7,6 +7,9 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
+	static const float P = 0.0f;
+	static const float I = 0.0f;
+	static const float D = 0.0f;
 	Talon leftMotor, rightMotor, tiltMotor;
 	Encoder leftEncoder, rightEncoder, tiltEncoder;
 	PIDController leftLoop, rightLoop, tiltLoop;
