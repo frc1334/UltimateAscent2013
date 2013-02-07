@@ -20,7 +20,9 @@ tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 	leftEncoder.Start();
 	rightEncoder.Start();
 	tiltEncoder.Start();
-	
+	leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	
 }
     
