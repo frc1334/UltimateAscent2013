@@ -23,21 +23,6 @@
 #define SHOOT_ENCODER				  7
 #define SHOOT_SOLENOID				  8
 
-#define CLIMB_SOLENOID_LEFT			  1
-#define CLIMB_MOTOR_LEFT			  2
-#define CLIMB_MOTOR_RIGHT             3
-#define CLIMB_ENCODER_RIGHT_A         4
-#define CLIMB_ENCODER_RIGHT_B         5
-#define CLIMB_ENCODER_LEFT_A          6
-#define CLIMB_ENCODER_LEFT_B          7
-#define CLIMB_LIMITSWITCH_TILT        8
-#define CLIMB_MOTOR_TILT              9
-#define CLIMB_SOLENOID_RIGHT          10
-#define CLIMB_LIMITSWITCH_LEFT        11
-#define CLIMB_LIMITSWITCH_RIGHT       12
-#define CLIMB_ENCODER_TILT_A          13
-#define CLIMB_ENCODER_TILT_B          14
-
 #define JOYSTICK_SHOOT                 1
 
 

@@ -31,7 +31,7 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/Users/Jamie/Documents/GitHub
+WS_ROOT_DIR := C:/Users/p/Documents/GitHub
 PRJ_ROOT_DIR := $(WS_ROOT_DIR)/UltimateAscent2013
 
 
