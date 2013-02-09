@@ -8,13 +8,6 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
-  /*  AnalogChannel leftanalogchannel;
-    Talon leftClimbMotor;
-    Talon rightClimbMotor;
-    AnalogChannel rightanalogchannel;
-    PIDController left;
-    PIDController right;*/
-
 	static const int maxBar = 3;
 	static const int minBar = 0;//ground
 	static const int currentBar = 0; // Dummy value

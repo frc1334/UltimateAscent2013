@@ -17,12 +17,16 @@ leftLoop(P,I,D,&leftEncoder, &leftMotor),
 rightLoop(P,I,D,&rightEncoder, &rightMotor),
 tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 {
-	//leftEncoder.Start();
-	//rightEncoder.Start();
-	//tiltEncoder.Start();
-	//leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	//rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	//tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);	
+	leftEncoder.Start();
+	rightEncoder.Start();
+	tiltEncoder.Start();
+	leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);	
+	leftLoop.SetContinuous(false);
+	rightLoop.SetContinuous(false);
+	tiltLoop.SetContinuous(false);
+	leftLoop.SetSetpoint(0);
 }
 
 void ClimberSubsystem::InitDefaultCommand()
