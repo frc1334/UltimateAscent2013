@@ -12,17 +12,17 @@ tiltSwitch(CLIMB_LIMITSWITCH_TILT),
 leftSwitch(CLIMB_LIMITSWITCH_LEFT),
 rightSwitch(CLIMB_LIMITSWITCH_RIGHT),
 leftSolenoid(2,3),
-rightSolenoid(1),
-leftLoop(P,I,D,&leftEncoder,&leftMotor),
-rightLoop(P,I,D,&rightEncoder,&rightMotor),
+rightSolenoid(1,1),
+leftLoop(P,I,D,&leftEncoder, &leftMotor),
+rightLoop(P,I,D,&rightEncoder, &rightMotor),
 tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 {
-	leftEncoder.Start();
-	rightEncoder.Start();
-	tiltEncoder.Start();
-	leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);	
+	//leftEncoder.Start();
+	//rightEncoder.Start();
+	//tiltEncoder.Start();
+	//leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	//rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	//tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);	
 }
 
 void ClimberSubsystem::InitDefaultCommand()
@@ -30,10 +30,6 @@ void ClimberSubsystem::InitDefaultCommand()
     
 }
 double ClimberSubsystem::returnPIDInput()
-{
-	
-}
-void ClimberSubsystem::usePIDOutput(output)
 {
 	
 }

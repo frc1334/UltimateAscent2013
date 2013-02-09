@@ -8,12 +8,12 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
-    AnalogChannel leftanalogchannel;
+  /*  AnalogChannel leftanalogchannel;
     Talon leftClimbMotor;
     Talon rightClimbMotor;
     AnalogChannel rightanalogchannel;
     PIDController left;
-    PIDController right;
+    PIDController right;*/
 
 	static const int maxBar = 3;
 	static const int minBar = 0;//ground
@@ -23,9 +23,9 @@ private:
 	static const float D = 0.0f;
 	Talon leftMotor, rightMotor, tiltMotor;
 	Encoder leftEncoder, rightEncoder, tiltEncoder;
-	PIDController leftLoop, rightLoop, tiltLoop;
 	Solenoid leftSolenoid, rightSolenoid;
 	DigitalInput tiltSwitch, leftSwitch, rightSwitch;
+	PIDController leftLoop, rightLoop, tiltLoop;
 public:
   ClimberSubsystem();
   void SetPosition(int bar, bool tilt, float deg);
@@ -33,7 +33,6 @@ public:
   bool IsAtTop();
   void InitDefaultCommand();
   double returnPIDInput();
-  int usePIDOutput(double output);
 };
 
 #endif
