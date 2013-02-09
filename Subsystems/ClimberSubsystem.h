@@ -1,5 +1,5 @@
-#ifndef EXAMPLE_SUBSYSTEM_H
-#define EXAMPLE_SUBSYSTEM_H
+#ifndef CLIMBER_SUBSYSTEM_H
+#define CLIMBER_SUBSYSTEM_H
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"

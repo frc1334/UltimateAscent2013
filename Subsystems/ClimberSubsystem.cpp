@@ -27,12 +27,7 @@ tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 
 void ClimberSubsystem::InitDefaultCommand()
 {
-    leftanalogchannel = new AnalogChannel();
-    rightanalogchannel = new AnalogChannel;
-    left = new PIDController(0,0,0, leftanalogchannel, leftClimbMotor);
-    right = new PIDController(0,0,0, rightanalogchannel, rightClimbMotor);
-    leftClimbMotor = new Talon();
-    rightClimbMotor = new Talon();
+    
 }
 double ClimberSubsystem::returnPIDInput()
 {
@@ -46,15 +41,15 @@ void ClimberSubsystem::SetPosition(int bar, bool tilt, float deg)
 {
 	if(bar == 0)
 	{
-		leftLoop.SetSetpoint(bar + 1);
-		rightLoop.SetSetpoint(bar + 1);
+		leftLoop.SetSetpoint(currentBar+1+deg);
+		rightLoop.SetSetpoint(currentBar+1+deg);
 	}
 	if(bar == 0 && tilt)
 	{
-		leftLoop.SetSetpoint(bar+1);
-		rightLoop.SetSetpoint(bar+1);
-		
+		leftLoop.SetSetpoint(currentBar+1);
+		rightLoop.SetSetpoint(currentBar+1);
 	}
+	
 }
 int ClimberSubsystem::GetPosition()
 {
