@@ -11,7 +11,3 @@
 *.lai
 *.la
 *.a
-
-# Project sctuff
-PPC603gnu
-*.layout

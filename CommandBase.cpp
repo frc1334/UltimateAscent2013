@@ -10,8 +10,10 @@ CommandBase::CommandBase() : Command()
 }
 
 OI* CommandBase::oi = NULL;
+ShooterSubsystem* CommandBase::shootersubsystem = NULL;
 
 void CommandBase::init()
 {
   oi = new OI();
+  shootersubsystem = new ShooterSubsystem();
 }

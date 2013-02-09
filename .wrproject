@@ -251,7 +251,7 @@
         </buildtarget>
         <buildtarget buildtool="Partial Image Linker" name="CommandBassedRobotTemplate_partialImage" passed="true" targetname="CommandBassedRobotTemplate_partialImage">
             <contents>
-                <folder name="/TestBot" recursive="true"/>
+                <folder name="/UltimateAscent2013" recursive="true"/>
             </contents>
         </buildtarget>
     </buildtargets>
