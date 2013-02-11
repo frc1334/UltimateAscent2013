@@ -11,4 +11,21 @@ Non-technical Manual
 Technical Manual
 ----------------
 
--- also not available --
+DRIVE
+
+Triggers - Velocitator
+Left Shtick - Rotatry Oscillator
+Bumpers - Shifing thingers
+X - Deploy hanger
+Right Shtick - Hanger up/down
+A - Climb (hold a)
+B - Toggle tilt
+
+UN-DRIVE
+
+A - Shoot Da Frisbee
+Right Trigger - Prepare shooter (manual/automatic
+Bumpers - Setpoint cycle (automatic)/Shift through speeds (manual)
+Y - Vision aim target
+Right shtick - fudge (hank style chocolate) (automatic) / tilt (manual)
+Start - toggle manual
