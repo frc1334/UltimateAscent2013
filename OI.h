@@ -20,6 +20,8 @@ public:
   { return Joystick_shoot.GetRawButton(1); }
   inline float GetFudge()
   { return 42.0; } // dummy val, will fill out later
+  inline bool GetStart()
+  { return Joystick_shoot.GetRawButton(8); }
 };
 
 #endif

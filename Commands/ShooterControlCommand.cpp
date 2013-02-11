@@ -1,9 +1,9 @@
 #include "ShooterControlCommand.h"
- 
+
 ShooterControlCommand::ShooterControlCommand()
 {
 	Requires(shootersubsystem);
-	TriggerPressedPre = TriggerPressed = LeftBumperPre = RightBumperPre = FirePre = Manual = false;
+	StartPre = TriggerPressedPre = TriggerPressed = LeftBumperPre = RightBumperPre = FirePre = Manual = false;
 	tilt = 0;
 	setPoint = 0;
 	setPoints[0].speed = 0.0f;
@@ -24,6 +24,9 @@ void ShooterControlCommand::Execute()
 	TriggerPressedPre = TriggerPressed;
 	shootersubsystem->SetFire((oi->GetFire() && !FirePre) ? (!shootersubsystem->GetFire()) : (shootersubsystem-GetFire()));
 	FirePre = oi->GetFire();
+	if (oi->GetStart() && !StartPre)
+		Manual = !Manual;
+	StartPre = oi->GetStart();
 	if (Manual)
 	{
 		if (oi->GetLeftBumper())
