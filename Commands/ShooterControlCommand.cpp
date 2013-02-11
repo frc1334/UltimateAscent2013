@@ -42,6 +42,8 @@ void ShooterControlCommand::Execute()
 		if (oi->GetRightBumper() && !RightBumperPre)
 			setPoint -= 1;
 		setPoint %= SETPOINT_COUNT;
+		tilt = setPoints[setPoint].tilt + (oi->GetFudge() * FUDGEFACTOR);
+		shootersubsystem->SetSpeed(setPoints[setPoint].speed);
 	}
 	LeftBumperPre = oi->GetLeftBumper();
 	RightBumperPre = oi->GetRightBumper();
