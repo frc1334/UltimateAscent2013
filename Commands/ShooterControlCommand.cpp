@@ -22,7 +22,7 @@ void ShooterControlCommand::Execute()
 		shootersubsystem->SetShooting(!shootersubsystem->GetShooting());
 	}
 	TriggerPressedPre = TriggerPressed;
-	shootersubsystem->SetFire(oi->GetFire() && !FirePre);
+	shootersubsystem->SetFire((oi->GetFire() && !FirePre) ? (!shootersubsystem->GetFire()) : (shootersubsystem-GetFire()));
 	FirePre = oi->GetFire();
 	if (Manual)
 	{
@@ -37,9 +37,9 @@ void ShooterControlCommand::Execute()
 	}
 	else
 	{
-		if (oi->GetLeftBumper())
+		if (oi->GetLeftBumper() && !LeftBumperPre)
 			setPoint += 1;
-		if (oi->GetRightBumper())
+		if (oi->GetRightBumper() && !RightBumperPre)
 			setPoint -= 1;
 		setPoint %= SETPOINT_COUNT;
 	}
