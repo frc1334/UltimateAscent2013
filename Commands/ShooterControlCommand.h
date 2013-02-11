@@ -2,6 +2,7 @@
 #define SHOOTER_CONTROL_COMMAND_H
 
 #define SETPOINT_COUNT 1
+#define FUDGEFACTOR 1.0f
 #include "../CommandBase.h"
  
 class ShooterControlCommand: public CommandBase
