@@ -24,7 +24,7 @@ B - Toggle tilt
 UN-DRIVE
 
 A - Shoot Da Frisbee
-Right Trigger - Prepare shooter (manual/automatic
+Right Trigger - Prepare shooter (manual/automatic)
 Bumpers - Setpoint cycle (automatic)/Shift through speeds (manual)
 Y - Vision aim target
 Right shtick - fudge (hank style chocolate) (automatic) / tilt (manual)
