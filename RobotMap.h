@@ -5,6 +5,7 @@
 #define RIGHT_MOTOR             2
 
 #define JOYSTICK_DRIVE          1
+#define JOYSTICK_SHOOT          2
 /**
 * The RobotMap is a mapping from the ports sensors and actuators are wired into
 * to a variable name. This provides flexibility changing wiring, makes checking
@@ -25,7 +26,10 @@
 #define TILT_SWITCH_RIGHT			  6
 #define SHOOT_ENCODER				  7
 #define SHOOT_SOLENOID				  8
-
-#define JOYSTICK_SHOOT                 1
+#define TILT_MOTOR					  42
+#define TILT_ENCODER				  42
+#define DRIVE_RIGHT_SOLENOID		  42
+#define DRIVE_LEFT_SOLENOID			  42
+#define TILT_LIMIT_SWITCH			  45
 
 #endif

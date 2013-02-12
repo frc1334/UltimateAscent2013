@@ -5,7 +5,9 @@
 
 DrivetrainSubsystem::DrivetrainSubsystem():Subsystem("DrivetrainSubsystem"),
 LeftMotor(LEFT_MOTOR), RightMotor(RIGHT_MOTOR), TiltMotor(TILT_MOTOR),
-TiltEncoder(TILT_ENCODER), TiltController(tiltP, tiltI, tiltD, TiltEncoder, TiltMotor)
+LeftSolenoid(DRIVE_LEFT_SOLENOID), RightSolenoid(DRIVE_RIGHT_SOLENOID),
+TiltEncoder(TILT_ENCODER), TiltController(tiltP, tiltI, tiltD, &TiltEncoder, &TiltMotor),
+TiltSwitch(TILT_LIMIT_SWITCH)
 {
 }
 
@@ -22,21 +24,20 @@ void DrivetrainSubsystem::Drive(float speed, float turn)
 
 void DrivetrainSubsystem::SetShiftState(bool state)
 {
-	LeftSolenoid->Set(state);
-	RightSolenoid->Set(state);
+	LeftSolenoid.Set(state);
+	RightSolenoid.Set(state);
 }
 
-void DriveTrainSubsystem::SetTiltState(bool tilting)
+void DrivetrainSubsystem::SetTiltState(bool tilting)
 {
 	TiltController.SetSetpoint(tilting ? tiltUp : tiltDown);
 }
 
-void DriveTrainSubsystem::Reset()
+void DrivetrainSubsystem::Reset()
 {
 	TiltMotor.Set(1.0f);
 	while (TiltSwitch.Get()) {}
 	TiltMotor.Set(0.0f);
-	TiltEncoder.Reset();
-	TiltEncoder.Start();
+	TiltController.Reset();
 	TiltController.Enable();
 }

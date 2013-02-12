@@ -13,8 +13,3 @@ public:
 };
 
 #endif
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/shooter
