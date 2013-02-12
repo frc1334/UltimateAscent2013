@@ -31,6 +31,9 @@ private:
   virtual void TestPeriodic()
   {
   }
+  virtual void TestPeriodic()
+  {
+  }
 };
 
 START_ROBOT_CLASS(UltimateAscentBot);

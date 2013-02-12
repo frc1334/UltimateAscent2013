@@ -3,6 +3,7 @@
 
 #include "Subsystems/DrivetrainSubsystem.h"
 #include "Commands/Command.h"
+#include "Subsystems/ShooterSubsystem.h"
 #include "OI.h"
 
 class CommandBase : public Command
@@ -14,6 +15,7 @@ public:
 
   static DrivetrainSubsystem *drivetrainsubsystem;
   static OI *oi;
+  static ShooterSubsystem *shootersubsystem;
 };
 
 #endif

@@ -11,9 +11,11 @@ CommandBase::CommandBase() : Command()
 
 DrivetrainSubsystem* CommandBase::drivetrainsubsystem = NULL;
 OI* CommandBase::oi = NULL;
+ShooterSubsystem* CommandBase::shootersubsystem = NULL;
 
 void CommandBase::init()
 {
   oi = new OI();
   drivetrainsubsystem = new DrivetrainSubsystem();
+  shootersubsystem = new ShooterSubsystem();
 }

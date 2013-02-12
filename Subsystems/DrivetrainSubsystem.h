@@ -12,6 +12,5 @@ public:
     void InitDefaultCommand();
     void Drive(float speed, float turn);
 };
-    
-	
+
 #endif
