@@ -37,7 +37,9 @@
 #define CLIMB_LIMITSWITCH_RIGHT       12
 #define CLIMB_ENCODER_TILT_A          13
 #define CLIMB_ENCODER_TILT_B          14
-#define CLIMB_LIMITSWITCH_
+#define CLIMB_LIMITSWITCH_A           15
+#define CLIMB_LIMITSWITCH_B           16
+#define CLIMB_LIMITSWITCH_C           17
 #define JOYSTICK_SHOOT                 1
 
 

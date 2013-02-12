@@ -49,7 +49,9 @@ double ClimberSubsystem::ReturnPIDInput()
 }
 void ClimberSubsystem::Climb(bool climb)
 {
-	leftSwitch.DigitalInput()
+	leftSwitch.DigitalInput(CLIMB_LIMITSWITCH_A);
+	rightSwitch.DigitalInput(CLIMB_LIMITSWITCH_B);
+	tiltSwitch.DigitalInput(CLIMB_LIMITSWITCH_C);
 }
 void ClimberSubsystem::Reset()
 {
