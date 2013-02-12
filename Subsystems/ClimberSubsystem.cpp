@@ -1,5 +1,6 @@
 #include "ClimberSubsystem.h"
 #include "../Robotmap.h"
+#include "../Utility.h"
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
 leftMotor(CLIMB_MOTOR_LEFT),
@@ -20,49 +21,66 @@ tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 	leftEncoder.Start();
 	rightEncoder.Start();
 	tiltEncoder.Start();
+	
 	leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);	
+	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	
+	tiltLoop.SetInputRange(0,EncoderTicksTilt);
+	leftLoop.SetInputRange(0, EncoderTicksFirstBar);
+	rightLoop.SetInputRange(0,EncoderTicksFirstBar);
+	
+	leftLoop.SetOutputRange(-1.0f, 1.0f);
+	rightLoop.SetOutputRange(-1.0f, 1.0f);
+	tiltLoop.SetOutputRange(0,0);
+	
 	leftLoop.SetContinuous(false);
 	rightLoop.SetContinuous(false);
 	tiltLoop.SetContinuous(false);
-	leftLoop.SetSetpoint(0);
 }
 
 void ClimberSubsystem::InitDefaultCommand()
 {
-    
+	//SetDefaultCommand(new ClimberCommand());
 }
-double ClimberSubsystem::returnPIDInput()
+double ClimberSubsystem::ReturnPIDInput()
 {
+	return leftEncoder.GetPeriod();
+}
+void ClimberSubsystem::Climb(bool climb)
+{
+	leftSwitch.DigitalInput()
+}
+void ClimberSubsystem::Reset()
+{
+	while (leftSwitch.Get() || rightSwitch.Get())
+	{
+			if(leftSwitch.Get())
+			{
+				leftMotor.Set(0.0f);
+			}
+				
+			if(rightSwitch.Get())
+			{
+				rightMotor.Set(0.0f);
+			}
+	}
+		
+	leftEncoder.Reset();
+	rightEncoder.Reset();
+	tiltEncoder.Reset();
 	
-}
-void ClimberSubsystem::SetPosition(int bar, bool tilt, float deg)
-{
-	if(bar == 0)
-	{
-		leftLoop.SetSetpoint(currentBar+1+deg);
-		rightLoop.SetSetpoint(currentBar+1+deg);
-	}
-	if(bar == 0 && tilt)
-	{
-		leftLoop.SetSetpoint(currentBar+1);
-		rightLoop.SetSetpoint(currentBar+1);
-	}
+	leftEncoder.Start();
+	rightEncoder.Start();
+	tiltEncoder.Start();
 	
+	leftLoop.Enable();
+	rightLoop.Enable();
+	tiltLoop.Enable();
 }
-int ClimberSubsystem::GetPosition()
+void ClimberSubsystem::SetTiltDegrees(float degrees)
 {
-	return currentBar;
+	degrees = Utility::Map(minDegrees, maxDegrees, 0, EncoderTicksTilt, degrees); // map the shooter angles to the encoder ticks
+	tiltLoop.SetSetpoint(degrees);
 }
-bool ClimberSubsystem::IsAtTop()
-{
-	if(currentBar == 3)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+

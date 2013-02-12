@@ -5,7 +5,7 @@
 #include "WPILib.h"
 //#include "Joystick.cpp"
 
-class ClimberSubsystem: public Subsystem
+class ClimberSubsystem: public Subsystem, public PIDSource
 {
 private:
 	static const int maxBar = 3;
@@ -14,18 +14,22 @@ private:
 	static const float P = 0.0f;
 	static const float I = 0.0f;
 	static const float D = 0.0f;
+	static const float EncoderTicksFirstBar = 42000;
+	static const float EncoderTicksTilt = 2100;
 	Talon leftMotor, rightMotor, tiltMotor;
 	Encoder leftEncoder, rightEncoder, tiltEncoder;
 	Solenoid leftSolenoid, rightSolenoid;
 	DigitalInput tiltSwitch, leftSwitch, rightSwitch;
 	PIDController leftLoop, rightLoop, tiltLoop;
 public:
+  static const int minDegrees = 20;
+  static const int maxDegrees = 50;
   ClimberSubsystem();
-  void SetPosition(int bar, bool tilt, float deg);
-  int GetPosition();
-  bool IsAtTop();
+  void Climb(bool climb);
   void InitDefaultCommand();
-  double returnPIDInput();
+  double ReturnPIDInput();
+  void Reset();
+  void SetTiltDegrees(float degrees);
 };
 
 #endif
