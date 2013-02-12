@@ -14,6 +14,7 @@ public:
     inline float GetDriveThrottle() { return Joystick_drive.GetZ(); }
     inline bool GetShiftUp() { return Joystick_drive.GetRawButton(5); }
     inline bool GetShiftDown() { return Joystick_drive.GetRawButton(6); }
+    inline bool GetTiltState() { return Joystick_drive.GetRawButton(2); }
 };
 
 #endif

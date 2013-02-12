@@ -3,8 +3,7 @@
 DrivetrainDriveCommand::DrivetrainDriveCommand()
 {
 	Requires(drivetrainsubsystem);
-	shiftUpPre = false;
-	shiftDownPre = false;
+	shiftUpPre = shiftDownPre = tiltPre = false;
 }
 
 void DrivetrainDriveCommand::Initialize()
@@ -18,8 +17,12 @@ void DrivetrainDriveCommand::Execute()
 		drivetrainsubsystem->SetShiftState(true);
 	if (oi->GetShiftDown() && !shiftDownPre)
 		drivetrainsubsystem->SetShiftState(false);
+	if (oi->GetTiltState() && !tiltPre)
+		tilt = !tilt;
+	drivetrainsubsystem->SetTiltState(tilt);
 	shiftUpPre = oi->GetShiftUp();
 	shiftDownPre = oi->GetShiftDown();
+	tiltPre = oi->GetTiltState();
 }
 
 bool DrivetrainDriveCommand::IsFinished()
