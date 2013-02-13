@@ -38,11 +38,24 @@ void ClimberSubsystem::Reset()
 
 void ClimberSubsystem::Deploy()
 {
-	
+	if(!isDeployed)
+	{
+		isDeployed = true;
+		climbSolenoid.Set(true);
+	}
 }
 
 bool ClimberSubsystem::IsDeployed()
 {
+	if(isDeployed)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
 }
 
 void ClimberSubsystem::ManualSet(float setpoint)
