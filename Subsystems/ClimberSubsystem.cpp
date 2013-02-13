@@ -18,22 +18,23 @@ leftLoop(P,I,D,&leftEncoder, &leftMotor),
 rightLoop(P,I,D,&rightEncoder, &rightMotor),
 tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
 {
+	// Starting ALL Encoders
 	leftEncoder.Start();
 	rightEncoder.Start();
 	tiltEncoder.Start();
-	
+	// Setting the PID Sources
 	leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	
+	// Setting PID Input ranges
 	tiltLoop.SetInputRange(0,EncoderTicksTilt);
 	leftLoop.SetInputRange(0, EncoderTicksFirstBar);
 	rightLoop.SetInputRange(0,EncoderTicksFirstBar);
-	
+	// Setting PID Output ranges
 	leftLoop.SetOutputRange(-1.0f, 1.0f);
 	rightLoop.SetOutputRange(-1.0f, 1.0f);
 	tiltLoop.SetOutputRange(0,0);
-	
+	// Setting If it is continouslly running
 	leftLoop.SetContinuous(false);
 	rightLoop.SetContinuous(false);
 	tiltLoop.SetContinuous(false);
@@ -49,9 +50,9 @@ double ClimberSubsystem::ReturnPIDInput()
 }
 void ClimberSubsystem::Climb(bool climb)
 {
-	leftSwitch.DigitalInput(CLIMB_LIMITSWITCH_A);
-	rightSwitch.DigitalInput(CLIMB_LIMITSWITCH_B);
-	tiltSwitch.DigitalInput(CLIMB_LIMITSWITCH_C);
+//	leftSwitch.DigitalInput(CLIMB_LIMITSWITCH_A);
+	//rightSwitch.DigitalInput(CLIMB_LIMITSWITCH_B);
+	//tiltSwitch.DigitalInput(CLIMB_LIMITSWITCH_C);
 }
 void ClimberSubsystem::Reset()
 {
