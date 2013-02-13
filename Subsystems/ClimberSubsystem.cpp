@@ -19,14 +19,7 @@ void ClimberSubsystem::InitDefaultCommand()
 {
 	//SetDefaultCommand(new ClimberCommand());
 }
-void ClimberSubsystem::Deploy()
-{
 
-}
-bool ClimberSubsystem::IsDeployed()
-{
-	
-}
 void ClimberSubsystem::Reset()
 {
 	while(!bottomSwitch.Get())
@@ -43,3 +36,25 @@ void ClimberSubsystem::Reset()
 	climbController.Enable();
 }
 
+void ClimberSubsystem::Deploy()
+{
+	
+}
+
+bool ClimberSubsystem::IsDeployed()
+{
+}
+
+void ClimberSubsystem::ManualSet(float setpoint)
+{
+	climbController.SetSetpoint(setpoint);
+}
+
+void ClimberSubsystem::AutomaticRun()
+{
+	climbController.SetSetpoint(climbController.GetSetpoint() + (autoForward ? 1 : -1));
+	if (autoForward && climbController.GetSetpoint() > maxSetpoint)
+		autoForward = false;
+	else if (!autoForward && climbController.GetSetpoint() < minSetpoint)
+		autoForward = true;
+}

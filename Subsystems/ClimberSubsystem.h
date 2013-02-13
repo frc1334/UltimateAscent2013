@@ -12,6 +12,9 @@ private:
 	static const float I = 0.0f;
 	static const float D = 0.0f;
 	static const float climberLength = 42.0f;
+	static const float maxSetpoint = 9000.0f;
+	static const float minSetpoint = -9000.0f;
+	bool autoForward = true;
 	Talon climbMotor;
 	Encoder climbEncoder;
 	Solenoid climbSolenoid;
