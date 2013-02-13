@@ -3,16 +3,16 @@
 #include "../Utility.h"
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
-leftMotor(CLIMB_MOTOR),
-leftEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
+climbMotor(CLIMB_MOTOR),
+climbEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
 topSwitch(CLIMB_LIMITSWITCH_TOP),
 bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
 climbSolenoid(2, 3),
-leftLoop(P, I, D, &climbEncoder, &climbMotor)
+climbController(P, I, D, &climbEncoder, &climbMotor)
 {
 	climbEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	climbController.SetInputRange(0, climberLength);
-	leftLoop.SetOutputRange(-1.0f, 1.0f);
+	climbController.SetOutputRange(-1.0f, 1.0f);
 }
 
 void ClimberSubsystem::InitDefaultCommand()
@@ -31,30 +31,20 @@ void ClimberSubsystem::Climb(bool climb)
 }
 void ClimberSubsystem::Reset()
 {
-	while (leftSwitch.Get() || rightSwitch.Get())
+	while (topSwitch.Get())
 	{
-			if(leftSwitch.Get())
+			climbMotor.Set(-3.0f);
+			if(bottomSwitch.Get())
 			{
-				leftMotor.Set(0.0f);
-			}
-				
-			if(rightSwitch.Get())
-			{
-				rightMotor.Set(0.0f);
+				climbMotor.Set(0.0f);
 			}
 	}
 		
-	leftEncoder.Reset();
-	rightEncoder.Reset();
-	tiltEncoder.Reset();
+	climbEncoder.Reset();
 	
-	leftEncoder.Start();
-	rightEncoder.Start();
-	tiltEncoder.Start();
+	climbEncoder.Start();
 	
-	leftLoop.Enable();
-	rightLoop.Enable();
-	tiltLoop.Enable();
+	climbController.Enable();
 }
 void ClimberSubsystem::SetTiltDegrees(float degrees)
 {

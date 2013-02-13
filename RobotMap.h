@@ -8,8 +8,6 @@
 * the wiring easier and significantly reduces the number of magic numbers
 * floating around.
 */
-
-// ALL OF THESE ARE ZERO BASED!
 #define CLIMB_MOTOR 				  1
 #define CLIMB_ENCODER_CLIMB_A         2
 #define CLIMB_ENCODER_CLIMB_B         3
