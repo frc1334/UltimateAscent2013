@@ -19,21 +19,19 @@ void ClimberSubsystem::InitDefaultCommand()
 {
 	//SetDefaultCommand(new ClimberCommand());
 }
-double ClimberSubsystem::ReturnPIDInput()
+void ClimberSubsystem::Deploy()
 {
-	return leftEncoder.GetPeriod();
+
 }
-void ClimberSubsystem::Climb(bool climb)
+bool ClimberSubsystem::IsDeployed()
 {
-//	leftSwitch.DigitalInput(CLIMB_LIMITSWITCH_A);
-	//rightSwitch.DigitalInput(CLIMB_LIMITSWITCH_B);
-	//tiltSwitch.DigitalInput(CLIMB_LIMITSWITCH_C);
+	
 }
 void ClimberSubsystem::Reset()
 {
-	while (topSwitch.Get())
+	while(!bottomSwitch.Get())
 	{
-			climbMotor.Set(-3.0f);
+			climbMotor.Set(-0.9f);
 			if(bottomSwitch.Get())
 			{
 				climbMotor.Set(0.0f);
@@ -41,14 +39,7 @@ void ClimberSubsystem::Reset()
 	}
 		
 	climbEncoder.Reset();
-	
 	climbEncoder.Start();
-	
 	climbController.Enable();
-}
-void ClimberSubsystem::SetTiltDegrees(float degrees)
-{
-	degrees = Utility::Map(minDegrees, maxDegrees, 0, EncoderTicksTilt, degrees); // map the shooter angles to the encoder ticks
-	tiltLoop.SetSetpoint(degrees);
 }
 
