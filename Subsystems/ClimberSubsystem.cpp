@@ -3,41 +3,16 @@
 #include "../Utility.h"
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
-leftMotor(CLIMB_MOTOR_LEFT),
-rightMotor(CLIMB_MOTOR_RIGHT),
-tiltMotor(CLIMB_MOTOR_TILT),
-leftEncoder(CLIMB_ENCODER_LEFT_A, CLIMB_ENCODER_LEFT_B),
-rightEncoder(CLIMB_ENCODER_RIGHT_A, CLIMB_ENCODER_RIGHT_B),
-tiltEncoder(CLIMB_ENCODER_TILT_A, CLIMB_ENCODER_TILT_B),
-tiltSwitch(CLIMB_LIMITSWITCH_TILT),
-leftSwitch(CLIMB_LIMITSWITCH_LEFT),
-rightSwitch(CLIMB_LIMITSWITCH_RIGHT),
-leftSolenoid(2,3),
-rightSolenoid(1,1),
-leftLoop(P,I,D,&leftEncoder, &leftMotor),
-rightLoop(P,I,D,&rightEncoder, &rightMotor),
-tiltLoop(P,I,D,&tiltEncoder, &tiltMotor)
+leftMotor(CLIMB_MOTOR),
+leftEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
+topSwitch(CLIMB_LIMITSWITCH_TOP),
+bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
+climbSolenoid(2, 3),
+leftLoop(P, I, D, &climbEncoder, &climbMotor)
 {
-	// Starting ALL Encoders
-	leftEncoder.Start();
-	rightEncoder.Start();
-	tiltEncoder.Start();
-	// Setting the PID Sources
-	leftEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	rightEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	tiltEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	// Setting PID Input ranges
-	tiltLoop.SetInputRange(0,EncoderTicksTilt);
-	leftLoop.SetInputRange(0, EncoderTicksFirstBar);
-	rightLoop.SetInputRange(0,EncoderTicksFirstBar);
-	// Setting PID Output ranges
+	climbEncoder.SetPIDSourceParameter(Encoder::kDistance);
+	climbController.SetInputRange(0, climberLength);
 	leftLoop.SetOutputRange(-1.0f, 1.0f);
-	rightLoop.SetOutputRange(-1.0f, 1.0f);
-	tiltLoop.SetOutputRange(0,0);
-	// Setting If it is continouslly running
-	leftLoop.SetContinuous(false);
-	rightLoop.SetContinuous(false);
-	tiltLoop.SetContinuous(false);
 }
 
 void ClimberSubsystem::InitDefaultCommand()
