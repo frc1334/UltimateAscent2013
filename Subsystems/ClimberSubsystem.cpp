@@ -8,7 +8,8 @@ climbEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
 topSwitch(CLIMB_LIMITSWITCH_TOP),
 bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
 climbSolenoid(2, 3),
-climbController(climbP, climbI, climbD, &climbEncoder, &climbMotor)
+climbController(climbP, climbI, climbD, &climbEncoder, &climbMotor),
+autoForward(true)
 {
 	climbEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	climbController.SetInputRange(0, climberLength);

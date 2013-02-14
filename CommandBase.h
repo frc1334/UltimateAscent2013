@@ -3,6 +3,7 @@
 
 #include "Commands/Command.h"
 #include "Subsystems/ShooterSubsystem.h"
+#include "Subsystems/ClimberSubsystem.h"
 #include "OI.h"
 
 class CommandBase : public Command

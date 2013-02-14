@@ -14,7 +14,7 @@ private:
 	static const float maxSetpoint = 9000.0f;
 	static const float minSetpoint = -9000.0f;
 	static const float deploySetpoint = 42.0f;
-	bool autoForward = true;
+	bool autoForward;
 	Talon climbMotor;
 	Encoder climbEncoder;
 	Solenoid climbSolenoid;
