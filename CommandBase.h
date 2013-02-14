@@ -14,6 +14,7 @@ public:
 
   static OI *oi;
   static ShooterSubsystem *shootersubsystem;
+  static ClimberSubsystem *climbersubsystem;
 };
 
 #endif

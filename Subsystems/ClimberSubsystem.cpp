@@ -1,6 +1,6 @@
 #include "ClimberSubsystem.h"
 #include "../Robotmap.h"
-#include "../Utility.h"
+#include "../Commands/ClimberCommand.h"
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
 climbMotor(CLIMB_MOTOR),
@@ -8,7 +8,7 @@ climbEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
 topSwitch(CLIMB_LIMITSWITCH_TOP),
 bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
 climbSolenoid(2, 3),
-climbController(P, I, D, &climbEncoder, &climbMotor)
+climbController(climbP, climbI, climbD, &climbEncoder, &climbMotor)
 {
 	climbEncoder.SetPIDSourceParameter(Encoder::kDistance);
 	climbController.SetInputRange(0, climberLength);
@@ -17,7 +17,7 @@ climbController(P, I, D, &climbEncoder, &climbMotor)
 
 void ClimberSubsystem::InitDefaultCommand()
 {
-	//SetDefaultCommand(new ClimberCommand());
+	SetDefaultCommand(new ClimberCommand());
 }
 
 void ClimberSubsystem::Reset()

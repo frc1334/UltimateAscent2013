@@ -3,14 +3,13 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-//#include "Joystick.cpp"
 
 class ClimberSubsystem: public Subsystem
 {
 private:
-	static const float P = 0.0f;
-	static const float I = 0.0f;
-	static const float D = 0.0f;
+	static const float climbP = 0.0f;
+	static const float climbI = 0.0f;
+	static const float climbD = 0.0f;
 	static const float climberLength = 42.0f;
 	static const float maxSetpoint = 9000.0f;
 	static const float minSetpoint = -9000.0f;

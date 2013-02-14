@@ -11,9 +11,11 @@ CommandBase::CommandBase() : Command()
 
 OI* CommandBase::oi = NULL;
 ShooterSubsystem* CommandBase::shootersubsystem = NULL;
+ClimberSubsystem* CommandBase::climbersubsystem = NULL;
 
 void CommandBase::init()
 {
   oi = new OI();
   shootersubsystem = new ShooterSubsystem();
+  climbersubsystem = new ClimberSubsystem();
 }
