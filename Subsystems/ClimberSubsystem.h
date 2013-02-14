@@ -17,8 +17,9 @@ private:
 	bool autoForward;
 	Talon climbMotor;
 	Encoder climbEncoder;
-	Solenoid climbSolenoid;
+	
 	DigitalInput topSwitch, bottomSwitch;
+	Solenoid climbSolenoid;
 	PIDController climbController;
 public:
   ClimberSubsystem();
