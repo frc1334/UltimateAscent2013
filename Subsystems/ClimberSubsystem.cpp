@@ -47,15 +47,6 @@ void ClimberSubsystem::Deploy()
 
 bool ClimberSubsystem::IsDeployed()
 {
-	if(isDeployed)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	
 }
 
 void ClimberSubsystem::ManualSet(float setpoint)
