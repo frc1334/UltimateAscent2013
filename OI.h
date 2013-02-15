@@ -7,6 +7,7 @@ class OI
 {
 private:
 	Joystick Joystick_shoot;
+	Joystick Joystick_Drive;
 public:
   OI();
   
@@ -18,6 +19,12 @@ public:
   { return Joystick_shoot.GetRawButton(6); }
   inline bool GetFire()
   { return Joystick_shoot.GetRawButton(1); }
+  inline bool GetDeploy()
+  { return Joystick_Drive.GetRawButton(3); }
+  inline bool GetAutoclimb()
+  { return Joystick_Drive.GetRawButton(1); }
+  inline float GetClimbFudge()
+  { return Joystick_Drive.GetTwist(); }
 };
 
 #endif

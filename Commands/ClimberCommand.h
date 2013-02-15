@@ -10,6 +10,8 @@
  */
 class ClimberCommand: public CommandBase
 {
+private:
+	bool deployPre, isDeployed;
 public:
 	ClimberCommand();
 	virtual void Initialize();

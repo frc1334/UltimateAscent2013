@@ -53,6 +53,11 @@ void ClimberSubsystem::ManualSet(float setpoint)
 	climbController.SetSetpoint(setpoint);
 }
 
+float ClimberSubsystem::ManualGet()
+{
+	return climbController.GetSetpoint();
+}
+
 void ClimberSubsystem::AutomaticRun()
 {
 	climbController.SetSetpoint(climbController.GetSetpoint() + (autoForward ? 1 : -1));

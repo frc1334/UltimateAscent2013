@@ -17,7 +17,6 @@ private:
 	bool autoForward;
 	Talon climbMotor;
 	Encoder climbEncoder;
-	
 	DigitalInput topSwitch, bottomSwitch;
 	Solenoid climbSolenoid;
 	PIDController climbController;
@@ -28,6 +27,7 @@ public:
   void Deploy();
   bool IsDeployed();
   void ManualSet(float setpoint);
+  float ManualGet();
   void AutomaticRun();
 };
 
