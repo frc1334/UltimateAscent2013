@@ -12,6 +12,14 @@
 * the wiring easier and significantly reduces the number of magic numbers
 * floating around.
 */
+#define CLIMB_MOTOR 				  1
+#define CLIMB_ENCODER_CLIMB_A         2
+#define CLIMB_ENCODER_CLIMB_B         3
+#define CLIMB_LIMITSWITCH_BOTTOM	  4
+#define CLIMB_LIMITSWITCH_BOTTOM      5
+#define CLIMB_LIMITSWITCH_TOP         6
+
+#define JOYSTICK_SHOOT                 1
 
 // ALL OF THESE ARE ZERO BASED!
 

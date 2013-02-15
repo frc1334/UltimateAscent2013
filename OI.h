@@ -24,6 +24,9 @@ public:
   inline bool GetShiftUp() { return Joystick_Drive.GetRawButton(5); }
   inline bool GetShiftDown() { return Joystick_Drive.GetRawButton(6); }
   inline bool GetTiltState() { return Joystick_Drive.GetRawButton(2); }
+  inline bool GetDeploy() { return Joystick_Drive.GetRawButton(3); }
+  inline bool GetAutoclimb() { return Joystick_Drive.GetRawButton(1); }
+  inline float GetClimbFudge() { return Joystick_Drive.GetTwist(); }
 };
 
 #endif
