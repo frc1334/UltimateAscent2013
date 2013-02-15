@@ -1,7 +1,6 @@
 #include "ShooterSubsystem.h"
 #include "../Commands/ShooterControlCommand.h"
 #include "../Robotmap.h"
-#include "../Utility.h"
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT), shootEncoder(SHOOT_ENCODER),
@@ -31,6 +30,11 @@ void ShooterSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ShooterControlCommand());
 }
 
+inline float Map(float minIn, float maxIn, float minOut, float maxOut, float val)
+{
+	return ((val - minIn) / (maxIn - minIn)) * (maxOut - minOut) + minOut;
+}
+
 void ShooterSubsystem::Reset()
 {
 	tiltMotorLeft.Set(1.0f);
@@ -52,7 +56,7 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
-	degreesTilt = Utility::Map(minDegrees, maxDegrees, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
+	degreesTilt = Map(minDegrees, maxDegrees, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
 	tiltMotorLeftLoop.SetSetpoint(degreesTilt);
 	tiltMotorRightLoop.SetSetpoint(degreesTilt);
 }
