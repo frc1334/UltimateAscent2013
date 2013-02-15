@@ -22,7 +22,7 @@ void ShooterControlCommand::Execute()
 		shootersubsystem->SetShooting(!shootersubsystem->GetShooting());
 	}
 	TriggerPressedPre = TriggerPressed;
-	shootersubsystem->SetFire((oi->GetFire() && !FirePre) ? (!shootersubsystem->GetFire()) : (shootersubsystem-GetFire()));
+	shootersubsystem->SetFire((oi->GetFire() && !FirePre) ? (!shootersubsystem->GetFire()) : (shootersubsystem->GetFire()));
 	FirePre = oi->GetFire();
 	if (oi->GetStart() && !StartPre)
 		Manual = !Manual;

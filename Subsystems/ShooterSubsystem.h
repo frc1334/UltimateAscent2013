@@ -30,6 +30,7 @@ public:
   void SetTilt(float degreesTilt);
   void SetSpeed(float speed);
   void SetFire(bool fire);
+  bool GetFire();
   void Setshoot(bool shoot);
   bool GetShooting();
   void SetShooting(bool enabled);

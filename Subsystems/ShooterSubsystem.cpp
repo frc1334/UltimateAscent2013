@@ -76,6 +76,11 @@ void ShooterSubsystem::SetFire(bool fire)
 	shootSolenoid.Set(fire);
 }
 
+bool ShooterSubsystem::GetFire()
+{
+	return shootSolenoid.Get();
+}
+
 void ShooterSubsystem::SetShooting(bool enabled)
 {
 	if (enabled)
