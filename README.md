@@ -8,7 +8,7 @@ Non-technical Manual
 
 ![xbox controller][xbox]
 
-##### Drive Remote #####
+#### Drive Remote #####
 
 **Triggers** - Throttle (right is forward)
 **Left Stick** - Steering
@@ -18,7 +18,7 @@ Non-technical Manual
 **B** - Toggle tilting mechanism
 **X** - Deploy climber
 
-##### Shooter Remote #####
+#### Shooter Remote #####
 
 **Right Trigger** - Wind up shooter
 **Start** - Toggle manual mode
