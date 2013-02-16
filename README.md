@@ -1,10 +1,12 @@
 UltimateAscent2013
 ==================
 
-2013 Robot Code for _FIRST_ team 1334.  Designed to be compiled in either windriver or code::blocks, though, not limited to these
+2013 Robot Code for _FIRST_ team 1334.  Designed to be compiled in windriver, as well as UCPP, though, this is not tested
 
 Driving Manual
 --------------
+
+Driving is done using two XBOX controllers.  Controller one is used for driving, and controller two operates the shooter.
 
 ![xbox controller][xbox]
 
