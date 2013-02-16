@@ -1,10 +1,17 @@
 #include "WPILib.h"
 #include "CommandBase.h"
-#include "SmartDashboard/SmartDashboard.h"
+#include "RobotMap.h"
 
 class UltimateAscentBot : public IterativeRobot
 {
+public:
+  UltimateAscentBot()
+  	  : compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY)
+  {}
+	
 private:
+  Compressor compressor;
+	
   virtual void RobotInit()
   {
     CommandBase::init();
@@ -21,6 +28,7 @@ private:
 
   virtual void TeleopInit()
   {
+	  compressor.Start();
   }
 
   virtual void TeleopPeriodic()
