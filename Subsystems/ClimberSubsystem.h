@@ -14,7 +14,7 @@ private:
 	static const float maxSetpoint = 9000.0f;
 	static const float minSetpoint = -9000.0f;
 	static const float deploySetpoint = 42.0f;
-	Talon climbMotor;
+	Talon climbMotor1, climbMotor2;
 	Encoder climbEncoder;
 	DigitalInput topSwitch, bottomSwitch;
 	Solenoid climbSolenoid;

@@ -1,14 +1,15 @@
 #include "ClimberSubsystem.h"
 #include "../Robotmap.h"
 #include "../Commands/ClimberCommand.h"
+#include "../PIDOutputMultiplexer.h"
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
-climbMotor(CLIMB_MOTOR),
+climbMotor1(CLIMB_MOTOR_1), climbMotor2(CLIMB_MOTOR_2),
 climbEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
 topSwitch(CLIMB_LIMITSWITCH_TOP),
 bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
-climbSolenoid(2, 3),
-climbController(climbP, climbI, climbD, &climbEncoder, &climbMotor),
+climbSolenoid(CLIMB_SOLENOID),
+climbController(climbP, climbI, climbD, &climbEncoder, new PIDOutputMultiplexer(&climbMotor1, &climbMotor2)),
 autoForward(true)
 {
 	climbEncoder.SetPIDSourceParameter(Encoder::kDistance);
@@ -25,10 +26,12 @@ void ClimberSubsystem::Reset()
 {
 	while(!bottomSwitch.Get())
 	{
-			climbMotor.Set(-0.9f);
+			climbMotor1.Set(-0.9f);
+			climbMotor1.Set(-0.9f);
 			if(bottomSwitch.Get())
 			{
-				climbMotor.Set(0.0f);
+				climbMotor1.Set(0.0f);
+				climbMotor1.Set(0.0f);
 			}
 	}
 		
