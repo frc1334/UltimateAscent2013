@@ -5,17 +5,10 @@
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
 climbMotor1(CLIMB_MOTOR_1), climbMotor2(CLIMB_MOTOR_2),
-climbEncoder(CLIMB_ENCODER_CLIMB_A, CLIMB_ENCODER_CLIMB_B),
-topSwitch(CLIMB_LIMITSWITCH_TOP),
-bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
 climbSolenoid(CLIMB_SOLENOID),
-climbController(climbP, climbI, climbD, &climbEncoder, new PIDOutputMultiplexer(&climbMotor1, &climbMotor2)),
-autoForward(true)
-{
-	climbEncoder.SetPIDSourceParameter(Encoder::kDistance);
-	climbController.SetInputRange(0, climberLength);
-	climbController.SetOutputRange(-1.0f, 1.0f);
-}
+topSwitch(CLIMB_LIMITSWITCH_TOP), bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
+autoForward(true), topPre(false), bottomPre(false)
+{ }
 
 void ClimberSubsystem::InitDefaultCommand()
 {
@@ -24,48 +17,38 @@ void ClimberSubsystem::InitDefaultCommand()
 
 void ClimberSubsystem::Reset()
 {
-	while(!bottomSwitch.Get())
-	{
-			climbMotor1.Set(-0.9f);
-			climbMotor1.Set(-0.9f);
-			if(bottomSwitch.Get())
-			{
-				climbMotor1.Set(0.0f);
-				climbMotor1.Set(0.0f);
-			}
-	}
-		
-	climbEncoder.Reset();
-	climbEncoder.Start();
-	climbController.Enable();
+	climbMotor1.Set(-0.01f);
+	climbMotor2.Set(-0.01f);
+	while(!bottomSwitch.Get()) {}
+	climbMotor1.Set(0.0f);
+	climbMotor2.Set(0.0f);
 }
 
 void ClimberSubsystem::Deploy()
 {
 	climbSolenoid.Set(true);
-	climbController.SetSetpoint(deploySetpoint);
 }
 
 bool ClimberSubsystem::IsDeployed()
 {
-	return climbController.GetSetpoint() >= deploySetpoint;
+	return climbSolenoid.Get();
 }
 
-void ClimberSubsystem::ManualSet(float setpoint)
+void ClimberSubsystem::ManualSet(float speed)
 {
-	climbController.SetSetpoint(setpoint);
+	climbMotor1.Set(speed);
+	climbMotor2.Set(speed);
+	if (topSwitch.Get() || bottomSwitch.Get())
+	{
+		climbMotor1.Set(0.0f);
+		climbMotor2.Set(0.0f);
+	}
 }
-
-float ClimberSubsystem::ManualGet()
-{
-	return climbController.GetSetpoint();
-}
-
 void ClimberSubsystem::AutomaticRun()
 {
-	climbController.SetSetpoint(climbController.GetSetpoint() + (autoForward ? 1 : -1));
-	if (autoForward && climbController.GetSetpoint() > maxSetpoint)
+	this->ManualSet(autoForward ? 1 : -1);
+	if (autoForward && topSwitch.Get())
 		autoForward = false;
-	else if (!autoForward && climbController.GetSetpoint() < minSetpoint)
+	else if (!autoForward && bottomSwitch.Get())
 		autoForward = true;
 }

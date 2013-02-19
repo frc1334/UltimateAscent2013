@@ -7,27 +7,17 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
-	static const float climbP = 0.0f;
-	static const float climbI = 0.0f;
-	static const float climbD = 0.0f;
-	static const float climberLength = 42.0f;
-	static const float maxSetpoint = 9000.0f;
-	static const float minSetpoint = -9000.0f;
-	static const float deploySetpoint = 42.0f;
 	Talon climbMotor1, climbMotor2;
-	Encoder climbEncoder;
 	DigitalInput topSwitch, bottomSwitch;
 	Solenoid climbSolenoid;
-	PIDController climbController;
-	bool autoForward;
+	bool autoForward, topPre, bottomPre;
 public:
   ClimberSubsystem();
   void InitDefaultCommand();
   void Reset();
   void Deploy();
   bool IsDeployed();
-  void ManualSet(float setpoint);
-  float ManualGet();
+  void ManualSet(float speed);
   void AutomaticRun();
 };
 

@@ -22,7 +22,7 @@ void ClimberCommand::Execute()
 	{
 		if (oi->GetAutoclimb())
 			climbersubsystem->AutomaticRun();
-		climbersubsystem->ManualSet(climbersubsystem->ManualGet() + oi->GetClimbFudge());
+		climbersubsystem->ManualSet(oi->GetClimbFudge());
 	}
 }
 

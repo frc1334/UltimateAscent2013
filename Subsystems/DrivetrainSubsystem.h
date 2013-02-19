@@ -14,9 +14,7 @@ private:
 	
 	Jaguar LeftMotor1, LeftMotor2, RightMotor1, RightMotor2, TiltMotor;
 	Solenoid ShiftSolenoid;
-	AnalogChannel TiltEncoder;
-	PIDController TiltController;
-	DigitalInput TiltSwitch;
+	DigitalInput TiltSwitchTop, TiltSwitchBottom;
 public:
     DrivetrainSubsystem();
     void InitDefaultCommand();

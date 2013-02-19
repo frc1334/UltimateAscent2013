@@ -37,8 +37,8 @@ inline float Map(float minIn, float maxIn, float minOut, float maxOut, float val
 
 void ShooterSubsystem::Reset()
 {
-	tiltMotorLeft.Set(1.0f);
-	tiltMotorRight.Set(1.0f);
+	tiltMotorLeft.Set(0.01f);
+	tiltMotorRight.Set(0.01f);
 	while (tiltSwitchLeft.Get() || tiltSwitchRight.Get())
 	{
 		if (tiltSwitchLeft.Get())

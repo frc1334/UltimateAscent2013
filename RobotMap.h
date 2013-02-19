@@ -14,8 +14,6 @@
 
 #define CLIMB_MOTOR_1				7
 #define CLIMB_MOTOR_2				8
-#define CLIMB_ENCODER_CLIMB_A		-1
-#define CLIMB_ENCODER_CLIMB_B		-1
 #define CLIMB_LIMITSWITCH_BOTTOM	-1
 #define CLIMB_LIMITSWITCH_TOP		-1
 #define CLIMB_SOLENOID				1
@@ -37,7 +35,8 @@
 #define TILT_MOTOR					4
 #define TILT_ENCODER				-1
 #define DRIVE_SOLENOID				2
-#define TILT_LIMIT_SWITCH			-1
+#define TILT_LIMIT_SWITCH_TOP		-1
+#define TILT_LIMIT_SWITCH_BOTTOM	-1
 #define COMPRESSOR_SWITCH			1
 #define COMPRESSOR_RELAY			1
 

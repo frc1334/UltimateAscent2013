@@ -3,7 +3,8 @@
 ShooterControlCommand::ShooterControlCommand()
 {
 	Requires(shootersubsystem);
-	StartPre = TriggerPressedPre = TriggerPressed = LeftBumperPre = RightBumperPre = FirePre = Manual = false;
+	StartPre = TriggerPressedPre = TriggerPressed = LeftBumperPre = RightBumperPre = FirePre = false;
+	Manual = true;
 	tilt = 0;
 	setPoint = 0;
 	setPoints[0].speed = 0.0f;
@@ -12,6 +13,7 @@ ShooterControlCommand::ShooterControlCommand()
 
 void ShooterControlCommand::Initialize()
 {
+	shootersubsystem->Reset();
 }
  
 void ShooterControlCommand::Execute()

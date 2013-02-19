@@ -6,8 +6,7 @@
 DrivetrainSubsystem::DrivetrainSubsystem():Subsystem("DrivetrainSubsystem"),
 LeftMotor1(LEFT_MOTOR_1), LeftMotor2(LEFT_MOTOR_2), RightMotor1(RIGHT_MOTOR_1), RightMotor2(RIGHT_MOTOR_2), TiltMotor(TILT_MOTOR),
 ShiftSolenoid(DRIVE_SOLENOID),
-TiltEncoder(TILT_ENCODER), TiltController(tiltP, tiltI, tiltD, &TiltEncoder, &TiltMotor),
-TiltSwitch(TILT_LIMIT_SWITCH)
+TiltSwitchTop(TILT_LIMIT_SWITCH_TOP), TiltSwitchBottom(TILT_LIMIT_SWITCH_BOTTOM)
 {
 }
 
@@ -18,10 +17,10 @@ void DrivetrainSubsystem::InitDefaultCommand()
 
 void DrivetrainSubsystem::Drive(float speed, float turn)
 {
-  LeftMotor1.Set((speed + turn) * .99); // limit the output, as without this, jaguars can blow their breakers
-  LeftMotor2.Set((speed + turn) * .99);
-  RightMotor1.Set((speed - turn) * .99);
-  RightMotor2.Set((speed - turn) * .99);
+  LeftMotor1.Set(speed + turn);
+  LeftMotor2.Set(speed + turn);
+  RightMotor1.Set(speed - turn);
+  RightMotor2.Set(speed - turn);
 }
 
 void DrivetrainSubsystem::SetShiftState(bool state)
@@ -31,14 +30,14 @@ void DrivetrainSubsystem::SetShiftState(bool state)
 
 void DrivetrainSubsystem::SetTiltState(bool tilting)
 {
-	TiltController.SetSetpoint(tilting ? tiltUp : tiltDown);
+	TiltMotor.Set(tilting ? 1.0f : -1.0f);
+	if ((tilting ? TiltSwitchTop : TiltSwitchBottom).Get())
+		TiltMotor.Set(0.0f);
 }
 
 void DrivetrainSubsystem::Reset()
 {
 	TiltMotor.Set(1.0f);
-	while (TiltSwitch.Get()) {}
+	while (TiltSwitchTop.Get()) {}
 	TiltMotor.Set(0.0f);
-	TiltController.Reset();
-	TiltController.Enable();
 }
