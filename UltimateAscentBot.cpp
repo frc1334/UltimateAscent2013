@@ -34,6 +34,7 @@ private:
   virtual void TeleopPeriodic()
   {
 	  Scheduler::GetInstance()->Run();
+	  CommandBase::shootersubsystem->Debug();
   }
 };
 

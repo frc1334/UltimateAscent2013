@@ -30,7 +30,7 @@
 #define TILT_ENCODER_RIGHT_B		11
 #define TILT_SWITCH_LEFT			-1
 #define TILT_SWITCH_RIGHT			-1
-#define SHOOT_ENCODER				-1
+#define SHOOT_ENCODER				14
 #define SHOOT_SOLENOID				3
 #define TILT_MOTOR					4
 #define TILT_ENCODER				-1

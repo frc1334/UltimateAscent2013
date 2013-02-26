@@ -36,6 +36,7 @@ public:
   void SetShooting(bool enabled);
   void Reset();
   double PIDGet();
+  void Debug();
 };
 
 #endif

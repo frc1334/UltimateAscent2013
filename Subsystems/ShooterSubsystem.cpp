@@ -93,3 +93,8 @@ bool ShooterSubsystem::GetShooting()
 {
 	return shootLoop.IsEnabled();
 }
+
+void ShooterSubsystem::Debug()
+{
+	std::cout << shootEncoder.Get() << ", " << shootEncoder.GetPeriod() << std::endl;
+}
