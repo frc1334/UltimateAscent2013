@@ -10,8 +10,10 @@ CommandBase::CommandBase() : Command()
 }
 
 OI* CommandBase::oi = NULL;
+VisionSubsystem* CommandBase::visionsubsystem = NULL;
 
 void CommandBase::init()
 {
   oi = new OI();
+  visionsubsystem = new VisionSubsystem();
 }
