@@ -23,12 +23,12 @@ void VisionSubsystem::UpdateTracking()
 		camera.GetImage(img);
 		// hue_high, hue_low, sat_high, sat_low, val_high, val_low
 		b_img = img->ThresholdHSV(85, 70, 255, 0, 240, 180);
-		b_img = b_img->RemoveSmallObjects(true, 0);
-		b_img = b_img->ConvexHull(true);
+		//b_img = b_img->RemoveSmallObjects(true, 0);
+		//b_img = b_img->ConvexHull(true);
 		delete img;
 		delete b_img;
-		vector<ParticleAnalysisReport>* particles = b_img->GetOrderedParticleAnalysisReports();
-		for (unsigned int i = 0; i < particles->size(); i++)
-			std::cout << particles->at(i).center_mass_x << ", " << particles->at(i).center_mass_y  << ", " << (particles->at(i).boundingRect.width / particles->at(i).boundingRect.height) << std::endl;
+		//vector<ParticleAnalysisReport>* particles = b_img->GetOrderedParticleAnalysisReports();
+		//for (unsigned int i = 0; i < particles->size(); i++)
+		//	std::cout << particles->at(i).center_mass_x << ", " << particles->at(i).center_mass_y  << ", " << (particles->at(i).boundingRect.width / particles->at(i).boundingRect.height) << std::endl;
 	}
 }
