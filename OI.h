@@ -2,6 +2,7 @@
 #define OI_H
 
 #include "WPILib.h"
+#include <math.h>
 
 class OI
 {
@@ -17,8 +18,8 @@ public:
   inline bool GetFire() { return Joystick_Shoot.GetRawButton(1); }
   inline float GetFudge() { return Joystick_Shoot.GetTwist(); }
   inline bool GetStart() { return Joystick_Shoot.GetRawButton(8); }
-  inline float GetDriveSteering() { return AddDeadZone(Joystick_Drive.GetX(), 0.01f); }
-  inline float GetDriveThrottle() { return AddDeadZone(Joystick_Drive.GetZ(), 0.01f); }
+  inline float GetDriveSteering() { return AddDeadZone(Joystick_Drive.GetX(), 0.15f); }
+  inline float GetDriveThrottle() { return Joystick_Drive.GetZ(); }
   inline bool GetShiftUp() { return Joystick_Drive.GetRawButton(5); }
   inline bool GetShiftDown() { return Joystick_Drive.GetRawButton(6); }
   inline bool GetTiltState() { return Joystick_Drive.GetRawButton(2); }
@@ -28,12 +29,9 @@ public:
   
   inline float AddDeadZone(float original, float deadzone)
   {
-	  if (original > 0 && original < deadzone)
-		  return 0;
-	  else if (original < 0 && original > -deadzone)
-		  return 0;
-	  else
-		  return original;
+	  float thing = ((fabs(original) <= deadzone) ? 0 : original);
+	  printf("%f to %f", original, thing);
+	  return thing;
   }
 };
 
