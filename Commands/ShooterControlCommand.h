@@ -16,7 +16,7 @@ private:
 		SetPoint() : tilt(0.0f), speed(0.0f) {}
 		SetPoint(float t, float s) : tilt(t), speed(s) {}
 	} setPoints[SETPOINT_COUNT];
-	bool TriggerPressed, TriggerPressedPre, LeftBumperPre, RightBumperPre, FirePre, StartPre, Manual;
+	bool LeftBumperPre, RightBumperPre, StartPre, Manual;
 	float tilt;
 	int setPoint;
 public:

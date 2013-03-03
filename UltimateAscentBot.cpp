@@ -8,7 +8,6 @@ public:
   UltimateAscentBot()
   	  : compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY)
   {}
-	
 private:
   Compressor compressor;
 	

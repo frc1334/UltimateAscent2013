@@ -25,13 +25,11 @@ public:
   inline bool GetTiltState() { return Joystick_Drive.GetRawButton(2); }
   inline bool GetDeploy() { return Joystick_Drive.GetRawButton(3); }
   inline bool GetAutoclimb() { return Joystick_Drive.GetRawButton(1); }
-  inline float GetClimbFudge() { return Joystick_Drive.GetTwist(); }
+  inline float GetClimbFudge() { return AddDeadZone(Joystick_Drive.GetRawAxis(5), 0.15f); }
   
   inline float AddDeadZone(float original, float deadzone)
   {
-	  float thing = ((fabs(original) <= deadzone) ? 0 : original);
-	  printf("%f to %f", original, thing);
-	  return thing;
+	  return ((fabs(original) <= deadzone) ? 0 : original);
   }
 };
 

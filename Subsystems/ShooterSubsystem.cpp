@@ -1,28 +1,30 @@
 #include "ShooterSubsystem.h"
 #include "../Commands/ShooterControlCommand.h"
 #include "../Robotmap.h"
+#include <limits>
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT), shootEncoder(SHOOT_ENCODER),
  tiltEncoderLeft(TILT_ENCODER_LEFT_A, TILT_ENCODER_LEFT_B), tiltEncoderRight(TILT_ENCODER_RIGHT_A, TILT_ENCODER_RIGHT_B),
  tiltMotorLeftLoop(tiltP, tiltI, tiltD, &tiltEncoderLeft, &tiltMotorLeft),
  tiltMotorRightLoop(tiltP, tiltI, tiltD, &tiltEncoderRight, &tiltMotorRight),
- shootLoop(shootP, shootI, shootD, this, &shootMotor),
+ shootLoop(shootP, shootI, shootD, this, this),
  tiltSwitchLeft(TILT_SWITCH_LEFT), tiltSwitchRight(TILT_SWITCH_RIGHT),
  shootSolenoid(SHOOT_SOLENOID)
 {
-	shootEncoder.Start();
 	tiltEncoderLeft.SetPIDSourceParameter(Encoder::kDistance);
 	tiltEncoderRight.SetPIDSourceParameter(Encoder::kDistance);
 	tiltMotorLeftLoop.SetInputRange(0, tiltTravel);
 	tiltMotorRightLoop.SetInputRange(0, tiltTravel);
-	shootLoop.SetInputRange(0.0f, 0.0f);
+	shootLoop.SetInputRange(0.0f, 6000.0f);
 	tiltMotorLeftLoop.SetOutputRange(-1.0f, 1.0f);
 	tiltMotorRightLoop.SetOutputRange(-1.0f, 1.0f);
-	shootLoop.SetOutputRange(0.0f, 0.0f);
-	SetSpeed(300);
+	shootLoop.SetOutputRange(0.0f, 1.0f);
+	SetSpeed(0.0f);
+	shootEncoder.Reset();
+	shootEncoder.SetMaxPeriod(1.0f);
+	shootEncoder.Start();
 	shootLoop.Enable();
-	tiltMotorLeftLoop.Enable();
 }
 
 void ShooterSubsystem::InitDefaultCommand()
@@ -37,7 +39,7 @@ inline float Map(float minIn, float maxIn, float minOut, float maxOut, float val
 
 void ShooterSubsystem::Reset()
 {
-	tiltMotorLeft.Set(0.01f);
+	/*tiltMotorLeft.Set(0.01f);
 	tiltMotorRight.Set(0.01f);
 	while (tiltSwitchLeft.Get() || tiltSwitchRight.Get())
 	{
@@ -45,7 +47,7 @@ void ShooterSubsystem::Reset()
 			tiltMotorLeft.Set(0.0f);
 		if (tiltSwitchRight.Get())
 			tiltMotorRight.Set(0.0f);
-	}
+	}*/
 	tiltEncoderLeft.Reset();
 	tiltEncoderRight.Reset();
 	tiltEncoderLeft.Start();
@@ -56,14 +58,19 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
-	degreesTilt = Map(minDegrees, maxDegrees, 0, tiltTravel, degreesTilt); // map the shooter angles to the encoder ticks
 	tiltMotorLeftLoop.SetSetpoint(degreesTilt);
 	tiltMotorRightLoop.SetSetpoint(degreesTilt);
 }
 
 double ShooterSubsystem::PIDGet()
 {
-	return shootEncoder.GetPeriod();
+	std::cout << "s\t" << (30.0f / shootEncoder.GetPeriod()) << std::endl;
+	return (30.0f / shootEncoder.GetPeriod());
+}
+
+void ShooterSubsystem::PIDWrite(float output)
+{
+	shootMotor.Set(output * -1.0f);
 }
 
 void ShooterSubsystem::SetSpeed(float speed)
@@ -76,25 +83,11 @@ void ShooterSubsystem::SetFire(bool fire)
 	shootSolenoid.Set(fire);
 }
 
-bool ShooterSubsystem::GetFire()
-{
-	return shootSolenoid.Get();
-}
-
 void ShooterSubsystem::SetShooting(bool enabled)
 {
-	if (enabled)
-		shootLoop.Enable();
-	else
-		shootLoop.Disable();
-}
-
-bool ShooterSubsystem::GetShooting()
-{
-	return shootLoop.IsEnabled();
+	SetSpeed((enabled) ? (4800.0f) : (0.0f));
 }
 
 void ShooterSubsystem::Debug()
 {
-	std::cout << shootEncoder.Get() << ", " << shootEncoder.GetPeriod() << std::endl;
 }

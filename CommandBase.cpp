@@ -17,7 +17,7 @@ ClimberSubsystem* CommandBase::climbersubsystem = NULL;
 void CommandBase::init()
 {
   oi = new OI();
-  drivetrainsubsystem = new DrivetrainSubsystem();
-  shootersubsystem = new ShooterSubsystem();
-  //climbersubsystem = new ClimberSubsystem();
+  //drivetrainsubsystem = new DrivetrainSubsystem();
+  //shootersubsystem = new ShooterSubsystem();
+  climbersubsystem = new ClimberSubsystem();
 }

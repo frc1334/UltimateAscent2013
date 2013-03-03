@@ -9,6 +9,7 @@ ClimberCommand::ClimberCommand()
 
 void ClimberCommand::Initialize()
 {
+	climbersubsystem->Reset();
 }
 
 void ClimberCommand::Execute()
@@ -18,7 +19,7 @@ void ClimberCommand::Execute()
 		climbersubsystem->Deploy();
 		isDeployed = true;
 	}
-	if (!isDeployed && climbersubsystem->IsDeployed())
+	if (isDeployed && climbersubsystem->IsDeployed())
 	{
 		if (oi->GetAutoclimb())
 			climbersubsystem->AutomaticRun();

@@ -4,18 +4,18 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
-class ShooterSubsystem : public Subsystem, public PIDSource
+class ShooterSubsystem : public Subsystem, public PIDSource, public PIDOutput
 {
 private:
-  static const float tiltP  = 1.0f;
+  static const float tiltP  = 0.001f;
   static const float tiltI  = 0.0f;
-  static const float tiltD  = 0.0f;
-  static const float shootP = 1.0f;
-  static const float shootI = 0.0f;
+  static const float tiltD  = 0.002f;
+  static const float shootP = 0.001f;
+  static const float shootI = 0.0005f;
   static const float shootD = 0.0f;
   static const float tiltTravel = 400; // dummy value
 
-  Jaguar shootMotor, tiltMotorLeft, tiltMotorRight;
+  Talon shootMotor, tiltMotorLeft, tiltMotorRight;
   GearTooth shootEncoder;
   Encoder tiltEncoderLeft, tiltEncoderRight;
   PIDController tiltMotorLeftLoop, tiltMotorRightLoop, shootLoop;
@@ -30,12 +30,10 @@ public:
   void SetTilt(float degreesTilt);
   void SetSpeed(float speed);
   void SetFire(bool fire);
-  bool GetFire();
-  void Setshoot(bool shoot);
-  bool GetShooting();
   void SetShooting(bool enabled);
   void Reset();
   double PIDGet();
+  void PIDWrite(float output);
   void Debug();
 };
 

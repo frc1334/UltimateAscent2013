@@ -3,7 +3,7 @@
 ShooterControlCommand::ShooterControlCommand()
 {
 	Requires(shootersubsystem);
-	StartPre = TriggerPressedPre = TriggerPressed = LeftBumperPre = RightBumperPre = FirePre = false;
+	StartPre = LeftBumperPre = RightBumperPre = false;
 	Manual = true;
 	tilt = 0;
 	setPoint = 0;
@@ -18,27 +18,21 @@ void ShooterControlCommand::Initialize()
  
 void ShooterControlCommand::Execute()
 {
-	if (oi->GetTrigger() > 90 && !TriggerPressedPre)
-	{
-		TriggerPressed = true;
-		shootersubsystem->SetShooting(!shootersubsystem->GetShooting());
-	}
-	TriggerPressedPre = TriggerPressed;
-	shootersubsystem->SetFire((oi->GetFire() && !FirePre) ? (!shootersubsystem->GetFire()) : (shootersubsystem->GetFire()));
-	FirePre = oi->GetFire();
+	shootersubsystem->SetShooting(oi->GetTrigger() < -0.9f);
+	shootersubsystem->SetFire(oi->GetFire());
 	if (oi->GetStart() && !StartPre)
 		Manual = !Manual;
 	StartPre = oi->GetStart();
 	if (Manual)
 	{
 		if (oi->GetLeftBumper())
-			tilt += 0.1f;
+			tilt += 10.0f;
 		if (oi->GetRightBumper())
-			tilt -= 0.1f;
-		if (tilt > ShooterSubsystem::maxDegrees)
+			tilt -= 10.0f;
+		/*if (tilt > ShooterSubsystem::maxDegrees)
 			tilt = ShooterSubsystem::maxDegrees;
 		if (tilt < ShooterSubsystem::minDegrees)
-			tilt = ShooterSubsystem::minDegrees;
+			tilt = ShooterSubsystem::minDegrees;*/
 	}
 	else
 	{

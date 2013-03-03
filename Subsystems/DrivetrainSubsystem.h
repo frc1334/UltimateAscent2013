@@ -12,7 +12,7 @@ private:
 	static const float tiltUp = 0.0f;
 	static const float tiltDown = 1000.0f;
 	
-	Jaguar LeftMotor1, LeftMotor2, RightMotor1, RightMotor2, TiltMotor;
+	Talon LeftMotor1, LeftMotor2, RightMotor1, RightMotor2, TiltMotor;
 	Solenoid ShiftSolenoid;
 	DigitalInput TiltSwitchTop, TiltSwitchBottom;
 public:
