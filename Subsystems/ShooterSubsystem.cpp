@@ -1,29 +1,21 @@
 #include "ShooterSubsystem.h"
 #include "../Commands/ShooterControlCommand.h"
 #include "../Robotmap.h"
-#include <limits>
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT), shootEncoder(SHOOT_ENCODER),
  tiltEncoderLeft(TILT_ENCODER_LEFT_A, TILT_ENCODER_LEFT_B), tiltEncoderRight(TILT_ENCODER_RIGHT_A, TILT_ENCODER_RIGHT_B),
- tiltMotorLeftLoop(tiltP, tiltI, tiltD, &tiltEncoderLeft, &tiltMotorLeft),
- tiltMotorRightLoop(tiltP, tiltI, tiltD, &tiltEncoderRight, &tiltMotorRight),
  shootLoop(shootP, shootI, shootD, this, this),
  tiltSwitchLeft(TILT_SWITCH_LEFT), tiltSwitchRight(TILT_SWITCH_RIGHT),
- shootSolenoid(SHOOT_SOLENOID)
+ shootSolenoid(SHOOT_SOLENOID), shooting(false)
 {
-	tiltEncoderLeft.SetPIDSourceParameter(Encoder::kDistance);
-	tiltEncoderRight.SetPIDSourceParameter(Encoder::kDistance);
-	tiltMotorLeftLoop.SetInputRange(0, tiltTravel);
-	tiltMotorRightLoop.SetInputRange(0, tiltTravel);
 	shootLoop.SetInputRange(0.0f, 6000.0f);
-	tiltMotorLeftLoop.SetOutputRange(-1.0f, 1.0f);
-	tiltMotorRightLoop.SetOutputRange(-1.0f, 1.0f);
 	shootLoop.SetOutputRange(0.0f, 1.0f);
 	SetSpeed(0.0f);
 	shootEncoder.Reset();
 	shootEncoder.SetMaxPeriod(1.0f);
 	shootEncoder.Start();
+	shootLoop.SetTolerance(0.01f);
 	shootLoop.Enable();
 }
 
@@ -52,19 +44,15 @@ void ShooterSubsystem::Reset()
 	tiltEncoderRight.Reset();
 	tiltEncoderLeft.Start();
 	tiltEncoderRight.Start();
-	tiltMotorLeftLoop.Enable();
-	tiltMotorRightLoop.Enable();
 }
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
-	tiltMotorLeftLoop.SetSetpoint(degreesTilt);
-	tiltMotorRightLoop.SetSetpoint(degreesTilt);
+	tiltSetpoint = degreesTilt;
 }
 
 double ShooterSubsystem::PIDGet()
 {
-	std::cout << "s\t" << (30.0f / shootEncoder.GetPeriod()) << std::endl;
 	return (30.0f / shootEncoder.GetPeriod());
 }
 
@@ -75,7 +63,7 @@ void ShooterSubsystem::PIDWrite(float output)
 
 void ShooterSubsystem::SetSpeed(float speed)
 {
-	shootLoop.SetSetpoint(speed);
+	shootLoop.SetSetpoint((shooting) ? speed : (0.0f));
 }
 
 void ShooterSubsystem::SetFire(bool fire)
@@ -85,9 +73,21 @@ void ShooterSubsystem::SetFire(bool fire)
 
 void ShooterSubsystem::SetShooting(bool enabled)
 {
-	SetSpeed((enabled) ? (4800.0f) : (0.0f));
+	shooting = enabled;
+}
+
+void ShooterSubsystem::DoRunning()
+{
+	//tiltMotorLeft.Set((((fabs(tiltSetpoint - tiltEncoderLeft.GetDistance()) <= 200.0f)) ? .25f : -.25f));
+	//tiltMotorRight.Set((((fabs(tiltSetpoint - tiltEncoderRight.GetDistance()) <= 200.0f)) ? .25f : -.25f));
 }
 
 void ShooterSubsystem::Debug()
 {
+	if (CommandBase::oi->GetTest7())
+	{
+		tiltEncoderLeft.Reset();
+		tiltEncoderRight.Reset();
+	}
+	std::cout << tiltSetpoint << " " << tiltEncoderLeft.GetDistance() << ", " << tiltEncoderRight.GetDistance() << std::endl;
 }

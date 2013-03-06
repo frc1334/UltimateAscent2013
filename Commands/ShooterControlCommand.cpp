@@ -29,6 +29,7 @@ void ShooterControlCommand::Execute()
 			tilt += 10.0f;
 		if (oi->GetRightBumper())
 			tilt -= 10.0f;
+		shootersubsystem->SetSpeed(4800.0f);
 		/*if (tilt > ShooterSubsystem::maxDegrees)
 			tilt = ShooterSubsystem::maxDegrees;
 		if (tilt < ShooterSubsystem::minDegrees)
@@ -47,6 +48,7 @@ void ShooterControlCommand::Execute()
 	LeftBumperPre = oi->GetLeftBumper();
 	RightBumperPre = oi->GetRightBumper();
 	shootersubsystem->SetTilt(tilt);
+	shootersubsystem->DoRunning();
 }
 
 bool ShooterControlCommand::IsFinished()

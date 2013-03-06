@@ -7,24 +7,23 @@
 class ShooterSubsystem : public Subsystem, public PIDSource, public PIDOutput
 {
 private:
-  static const float tiltP  = 0.001f;
-  static const float tiltI  = 0.0f;
-  static const float tiltD  = 0.002f;
-  static const float shootP = 0.001f;
-  static const float shootI = 0.0005f;
-  static const float shootD = 0.0f;
-  static const float tiltTravel = 400; // dummy value
+  static const float tiltP  = 0.00000001f;
+  static const float tiltI  = 0.00000002f;
+  static const float tiltD  = 0.0f;
+  static const float shootP = 0.00156f;
+  static const float shootI = 0.00891f;
+  static const float shootD = 0.0000683f;
+  static const float tiltTravel = 4000;
 
   Talon shootMotor, tiltMotorLeft, tiltMotorRight;
   GearTooth shootEncoder;
   Encoder tiltEncoderLeft, tiltEncoderRight;
-  PIDController tiltMotorLeftLoop, tiltMotorRightLoop, shootLoop;
+  PIDController shootLoop;
   DigitalInput tiltSwitchLeft, tiltSwitchRight;
   Solenoid shootSolenoid;
+  float tiltSetpoint;
+  bool shooting;
 public:
-  static const int minDegrees = 0;
-  static const int maxDegrees = 100;
-  
   ShooterSubsystem();
   void InitDefaultCommand();
   void SetTilt(float degreesTilt);
@@ -34,6 +33,7 @@ public:
   void Reset();
   double PIDGet();
   void PIDWrite(float output);
+  void DoRunning();
   void Debug();
 };
 
