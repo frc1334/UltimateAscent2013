@@ -78,8 +78,8 @@ void ShooterSubsystem::SetShooting(bool enabled)
 
 void ShooterSubsystem::DoRunning()
 {
-	//tiltMotorLeft.Set((((fabs(tiltSetpoint - tiltEncoderLeft.GetDistance()) <= 200.0f)) ? .25f : -.25f));
-	//tiltMotorRight.Set((((fabs(tiltSetpoint - tiltEncoderRight.GetDistance()) <= 200.0f)) ? .25f : -.25f));
+	tiltMotorLeft.Set(((fabs(tiltSetpoint - tiltEncoderLeft.GetDistance()) <= 200.0f)) ? 0.0f : ((tiltSetpoint > tiltEncoderLeft.GetDistance()) ? -.25f : .25f));
+	tiltMotorRight.Set(((fabs(tiltSetpoint - tiltEncoderRight.GetDistance()) <= 200.0f)) ? 0.0f : ((tiltSetpoint > tiltEncoderRight.GetDistance()) ? -.25f : .25f));
 }
 
 void ShooterSubsystem::Debug()
