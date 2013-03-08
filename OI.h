@@ -19,7 +19,7 @@ public:
   inline bool GetFire() { return Joystick_Shoot.GetRawButton(1); }
   inline float GetFudge() { return Joystick_Shoot.GetTwist(); }
   inline bool GetStart() { return Joystick_Shoot.GetRawButton(8); }
-  inline float GetDriveSteering() { return AddDeadZone(Joystick_Drive.GetX(), 0.15f); }
+  inline float GetDriveSteering() { return -AddDeadZone(Joystick_Drive.GetX(), 0.15f); } // there's a negative hiding in there
   inline float GetDriveThrottle() { return Joystick_Drive.GetZ(); }
   inline bool GetShiftUp() { return Joystick_Drive.GetRawButton(5); }
   inline bool GetShiftDown() { return Joystick_Drive.GetRawButton(6); }

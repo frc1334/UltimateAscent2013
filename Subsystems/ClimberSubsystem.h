@@ -7,11 +7,11 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
+	Solenoid climbSolenoid;
+	bool autoUp, topPre, bottomPre;
+public:
 	Talon climbMotor1, climbMotor2;
 	DigitalInput topSwitch, bottomSwitch;
-	Solenoid climbSolenoid;
-	bool autoForward, topPre, bottomPre;
-public:
   ClimberSubsystem();
   void InitDefaultCommand();
   void Reset();

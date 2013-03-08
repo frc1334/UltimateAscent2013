@@ -17,10 +17,10 @@ void DrivetrainSubsystem::InitDefaultCommand()
 
 void DrivetrainSubsystem::Drive(float speed, float turn)
 {
-  LeftMotor1.Set(turn - speed);
-  LeftMotor2.Set(turn - speed);
-  RightMotor1.Set(turn + speed);
-  RightMotor2.Set(turn + speed);
+  LeftMotor1.Set(turn + speed);
+  LeftMotor2.Set(turn + speed);
+  RightMotor1.Set(turn - speed);
+  RightMotor2.Set(turn - speed);
 }
 
 void DrivetrainSubsystem::SetShiftState(bool state)

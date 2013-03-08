@@ -3,8 +3,6 @@
 ClimberCommand::ClimberCommand()
 {
 	Requires(climbersubsystem);
-	deployPre = false;
-	isDeployed = false;
 }
 
 void ClimberCommand::Initialize()
@@ -14,15 +12,13 @@ void ClimberCommand::Initialize()
 
 void ClimberCommand::Execute()
 {
-	if (oi->GetDeploy() && !deployPre)
-	{
+	if (oi->GetDeploy() && !climbersubsystem->IsDeployed())
 		climbersubsystem->Deploy();
-		isDeployed = true;
-	}
-	if (isDeployed && climbersubsystem->IsDeployed())
+	if (climbersubsystem->IsDeployed())
 	{
-		if (oi->GetAutoclimb())
-			climbersubsystem->AutomaticRun();
+		/*if (oi->GetAutoclimb())
+			climbersubsystem->AutomaticRun();*/
+		//std::cout << oi->GetClimbFudge() << " " << climbersubsystem->bottomSwitch.Get() << " " << climbersubsystem->topSwitch.Get() << " " << climbersubsystem->climbMotor1.Get() << " " << climbersubsystem->climbMotor2.Get() << std::endl;
 		climbersubsystem->ManualSet(oi->GetClimbFudge());
 	}
 }

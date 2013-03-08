@@ -4,17 +4,14 @@
 
 class UltimateAscentBot : public IterativeRobot
 {
-public:
-  UltimateAscentBot()
-  	  : compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY)
-  {}
 private:
-  Compressor compressor;
+  Compressor *compressor;
 	
   virtual void RobotInit()
   {
     CommandBase::init();
     SmartDashboard::init();
+    compressor = new Compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY);
   }
 
   virtual void AutonomousInit()
@@ -27,7 +24,7 @@ private:
 
   virtual void TeleopInit()
   {
-	  compressor.Start();
+	  compressor->Start();
   }
 
   virtual void TeleopPeriodic()
