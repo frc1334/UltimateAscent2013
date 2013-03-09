@@ -4,13 +4,14 @@
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT), shootEncoder(SHOOT_ENCODER),
- tiltEncoderLeft(TILT_ENCODER_LEFT_A, TILT_ENCODER_LEFT_B, false, CounterBase::k1X), tiltEncoderRight(TILT_ENCODER_RIGHT_A, TILT_ENCODER_RIGHT_B, false, CounterBase::k1X),
+ tiltEncoderLeft(TILT_ENCODER_LEFT_A, TILT_ENCODER_LEFT_B, true, CounterBase::k1X), tiltEncoderRight(TILT_ENCODER_RIGHT_A, TILT_ENCODER_RIGHT_B, true, CounterBase::k1X),
  shootLoop(shootP, shootI, shootD, this, this),
  tiltLoopLeft(tiltP, tiltI, tiltD, &tiltEncoderLeft, &tiltMotorLeft), tiltLoopRight(tiltP, tiltI, tiltD, &tiltEncoderRight, &tiltMotorRight),
  tiltSwitchLeft(TILT_SWITCH_LEFT), tiltSwitchRight(TILT_SWITCH_RIGHT),
  shootSolenoid(SHOOT_SOLENOID), shooting(false)
 {
-	shootLoop.SetInputRange(0.0f, 6000.0f);
+	p = i = d = 0;
+	shootLoop.SetInputRange(0.0f, 7000.0f);
 	shootLoop.SetOutputRange(0.0f, 1.0f);
 	SetSpeed(0.0f);
 	shootEncoder.Reset();
@@ -18,10 +19,19 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	shootEncoder.Start();
 	shootLoop.SetTolerance(0.01f);
 	shootLoop.Enable();
+
+	tiltEncoderLeft.SetDistancePerPulse(0.01);
+	tiltEncoderRight.SetDistancePerPulse(0.01);
+	tiltLoopLeft.SetContinuous(false);
+	tiltLoopRight.SetContinuous(false);
 	tiltLoopLeft.SetInputRange(-2500.0f, 2500.0f);
 	tiltLoopRight.SetInputRange(-2500.0f, 2500.0f);
 	tiltLoopLeft.SetOutputRange(-1.0f, 1.0f);
 	tiltLoopRight.SetOutputRange(-1.0f, 1.0f);
+	tiltLoopLeft.SetSetpoint(0.0f);
+	tiltLoopRight.SetSetpoint(0.0f);
+	tiltLoopLeft.SetTolerance(0.01f);
+	tiltLoopRight.SetTolerance(0.01f);
 	derp = false;
 }
 
@@ -56,8 +66,11 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
 {
-	tiltLoopLeft.SetSetpoint(degreesTilt);
-	tiltLoopRight.SetSetpoint(degreesTilt);
+	if (degreesTilt != tiltLoopLeft.GetSetpoint())
+	{
+		tiltLoopLeft.SetSetpoint(degreesTilt);
+		tiltLoopRight.SetSetpoint(degreesTilt);
+	}
 }
 
 double ShooterSubsystem::PIDGet()
@@ -87,26 +100,30 @@ void ShooterSubsystem::SetShooting(bool enabled)
 
 void ShooterSubsystem::Debug()
 {
-	float p, i, d;
 	if (CommandBase::oi->GetTest1() && !derp)
 		p += 0.0001f;
 	if (CommandBase::oi->GetTest2() && !derp)
 		p -= 0.0001f;
-	if (CommandBase::oi->GetTest3() && !derp)
-		i += 0.0001f;
-	if (CommandBase::oi->GetTest4() && !derp)
-		i -= 0.0001f;
 	if (CommandBase::oi->GetTest5() && !derp)
-		d += 0.0001f;
+		i += 0.0001f;
 	if (CommandBase::oi->GetTest6() && !derp)
+		i -= 0.0001f;
+	if (CommandBase::oi->GetTest3() && !derp)
+		d += 0.0001f;
+	if (CommandBase::oi->GetTest4() && !derp)
 		d -= 0.0001f;
-	tiltLoopLeft.SetPID(tiltLoopLeft.GetP() + p, tiltLoopLeft.GetI() + i, tiltLoopLeft.GetD() + d);
-	tiltLoopRight.SetPID(tiltLoopRight.GetP() + p, tiltLoopRight.GetI() + i, tiltLoopRight.GetD() + d);
+	
+	tiltLoopLeft.SetPID(p, i, d);
+	tiltLoopRight.SetPID(p, i, d);
 	derp = CommandBase::oi->GetTest1() || CommandBase::oi->GetTest2() || CommandBase::oi->GetTest3() || CommandBase::oi->GetTest4() || CommandBase::oi->GetTest5() || CommandBase::oi->GetTest6();
 	if (CommandBase::oi->GetTest7())
 	{
 		tiltEncoderLeft.Reset();
 		tiltEncoderRight.Reset();
 	}
-	std::cout << tiltSetpoint << " " << tiltEncoderLeft.GetDistance() << ", " << tiltEncoderRight.GetDistance() << " " << tiltMotorLeft.Get() << ", " << tiltMotorRight.Get() << tiltLoopLeft.GetP() << tiltLoopLeft.GetI() << tiltLoopLeft.GetD() << std::endl;
+	//std::cout << "Setpoint:" << shootLoop.GetSetpoint() << " P: " << shootLoop.GetP() << " I: " << shootLoop.GetI() << " D: " << shootLoop.GetD() << (30.0f / shootEncoder.GetPeriod()) << std::endl;
+	std::cout << "Left OT: " << tiltLoopLeft.OnTarget() << " || Right OT: " << tiltLoopRight.OnTarget() << std::endl;
+	std::cout << "Setpoint: " << tiltLoopLeft.GetSetpoint() << " || P,I,D: " << tiltLoopLeft.GetP() << ", " << tiltLoopLeft.GetI() << ", " << tiltLoopLeft.GetD() << std::endl;
+	std::cout << tiltEncoderLeft.GetDistance() << ", " << tiltEncoderRight.GetDistance() << " " << tiltMotorLeft.Get() << ", " << tiltMotorRight.Get() << std::endl;
+	std::cout <<"==================" << std::endl;
 }

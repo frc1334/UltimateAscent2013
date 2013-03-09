@@ -8,7 +8,7 @@ class ShooterSubsystem : public Subsystem, public PIDSource, public PIDOutput
 {
 private:
   static const float tiltP  = 0.0f;
-  static const float tiltI  = 0.0f;
+  static const float tiltI  = 0.000002f;
   static const float tiltD  = 0.0f;
   static const float shootP = 0.00156f;
   static const float shootI = 0.00891f;
@@ -21,8 +21,8 @@ private:
   PIDController shootLoop, tiltLoopLeft, tiltLoopRight;
   DigitalInput tiltSwitchLeft, tiltSwitchRight;
   Solenoid shootSolenoid;
-  float tiltSetpoint;
   bool shooting, derp;
+  float p, i, d;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();

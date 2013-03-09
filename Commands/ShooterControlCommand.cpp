@@ -29,7 +29,7 @@ void ShooterControlCommand::Execute()
 			tilt += .1f;
 		if (oi->GetRightBumper())
 			tilt -= .1f;
-		shootersubsystem->SetSpeed(4800.0f);
+		shootersubsystem->SetSpeed(5450.0f);
 		/*if (tilt > ShooterSubsystem::maxDegrees)
 			tilt = ShooterSubsystem::maxDegrees;
 		if (tilt < ShooterSubsystem::minDegrees)
