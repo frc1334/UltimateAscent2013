@@ -14,12 +14,20 @@ ShooterControlCommand::ShooterControlCommand()
 void ShooterControlCommand::Initialize()
 {
 	shootersubsystem->Reset();
+	shootersubsystem->SetTilt(false);
 }
  
-void ShooterControlCommand::Execute()
+ void ShooterControlCommand::Execute()
 {
 	shootersubsystem->SetShooting(oi->GetTrigger() < -0.9f);
 	shootersubsystem->SetFire(oi->GetFire());
+	while(oi->GetFire())
+	{
+		shootersubsystem->SetFire(true);
+		Wait(0.5);
+		shootersubsystem->setFire(false);
+	}
+	/*
 	if (oi->GetStart() && !StartPre)
 		Manual = !Manual;
 	StartPre = oi->GetStart();
@@ -30,10 +38,10 @@ void ShooterControlCommand::Execute()
 		if (oi->GetRightBumper())
 			tilt -= .1f;
 		shootersubsystem->SetSpeed(5450.0f);
-		/*if (tilt > ShooterSubsystem::maxDegrees)
+		if (tilt > ShooterSubsystem::maxDegrees)
 			tilt = ShooterSubsystem::maxDegrees;
 		if (tilt < ShooterSubsystem::minDegrees)
-			tilt = ShooterSubsystem::minDegrees;*/
+			tilt = ShooterSubsystem::minDegrees;
 	}
 	else
 	{
@@ -48,6 +56,7 @@ void ShooterControlCommand::Execute()
 	LeftBumperPre = oi->GetLeftBumper();
 	RightBumperPre = oi->GetRightBumper();
 	shootersubsystem->SetTilt(tilt);
+	*/
 }
 
 bool ShooterControlCommand::IsFinished()

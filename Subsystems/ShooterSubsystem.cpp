@@ -8,7 +8,9 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootLoop(shootP, shootI, shootD, this, this),
  tiltLoopLeft(tiltP, tiltI, tiltD, &tiltEncoderLeft, &tiltMotorLeft), tiltLoopRight(tiltP, tiltI, tiltD, &tiltEncoderRight, &tiltMotorRight),
  tiltSwitchLeft(TILT_SWITCH_LEFT), tiltSwitchRight(TILT_SWITCH_RIGHT),
- shootSolenoid(SHOOT_SOLENOID), shooting(false)
+ shootSolenoid(SHOOT_SOLENOID),
+ tiltSolenoid(SHOOT_TILT_SOLENOID),
+ shooting(false)
 {
 	p = i = d = 0;
 	shootLoop.SetInputRange(0.0f, 7000.0f);
@@ -60,16 +62,15 @@ void ShooterSubsystem::Reset()
 	tiltEncoderRight.Reset();
 	tiltEncoderLeft.Start();
 	tiltEncoderRight.Start();
-	tiltLoopLeft.Enable();
-	tiltLoopRight.Enable();
+	tiltLoopLeft.Disable();
+	tiltLoopRight.Disable();
 }
 
-void ShooterSubsystem::SetTilt(float degreesTilt) // set the shooter angle in degrees
+void ShooterSubsystem::SetTilt(bool tilt) // Set the shoot solenoid to  activate the 2 pistons that elevate the shooter
 {
-	if (degreesTilt != tiltLoopLeft.GetSetpoint())
+	if(!tiltSolenoid.Get())
 	{
-		tiltLoopLeft.SetSetpoint(degreesTilt);
-		tiltLoopRight.SetSetpoint(degreesTilt);
+		tiltSolenoid.Set(true);	
 	}
 }
 
@@ -97,7 +98,11 @@ void ShooterSubsystem::SetShooting(bool enabled)
 {
 	shooting = enabled;
 }
-
+void ShooterSubsystem::AutomaticShooting(float delay)
+{
+	 SetFire(true);
+	 SetShooting(true);
+}
 void ShooterSubsystem::Debug()
 {
 	if (CommandBase::oi->GetTest1() && !derp)
@@ -113,17 +118,24 @@ void ShooterSubsystem::Debug()
 	if (CommandBase::oi->GetTest4() && !derp)
 		d -= 0.0001f;
 	
-	tiltLoopLeft.SetPID(p, i, d);
-	tiltLoopRight.SetPID(p, i, d);
+	//tiltLoopLeft.SetPID(p, i, d);
+	//tiltLoopRight.SetPID(p, i, d);
 	derp = CommandBase::oi->GetTest1() || CommandBase::oi->GetTest2() || CommandBase::oi->GetTest3() || CommandBase::oi->GetTest4() || CommandBase::oi->GetTest5() || CommandBase::oi->GetTest6();
 	if (CommandBase::oi->GetTest7())
 	{
 		tiltEncoderLeft.Reset();
 		tiltEncoderRight.Reset();
 	}
+	
+	std::cout << "Setpoint: " << shootLoop.GetSetpoint();
+	if (shootEncoder.GetPeriod()>0 && shootEncoder.GetPeriod()<1){
+		std::cout << "|| Enc Rate: " << 30.0f / shootEncoder.GetPeriod() <<std::endl;
+	}
+	std::cout << "===========" << std::endl;
+	
 	//std::cout << "Setpoint:" << shootLoop.GetSetpoint() << " P: " << shootLoop.GetP() << " I: " << shootLoop.GetI() << " D: " << shootLoop.GetD() << (30.0f / shootEncoder.GetPeriod()) << std::endl;
-	std::cout << "Left OT: " << tiltLoopLeft.OnTarget() << " || Right OT: " << tiltLoopRight.OnTarget() << std::endl;
+	/*std::cout << "Left OT: " << tiltLoopLeft.OnTarget() << " || Right OT: " << tiltLoopRight.OnTarget() << std::endl;
 	std::cout << "Setpoint: " << tiltLoopLeft.GetSetpoint() << " || P,I,D: " << tiltLoopLeft.GetP() << ", " << tiltLoopLeft.GetI() << ", " << tiltLoopLeft.GetD() << std::endl;
 	std::cout << tiltEncoderLeft.GetDistance() << ", " << tiltEncoderRight.GetDistance() << " " << tiltMotorLeft.Get() << ", " << tiltMotorRight.Get() << std::endl;
-	std::cout <<"==================" << std::endl;
+	std::cout <<"==================" << std::endl;*/
 }

@@ -20,16 +20,17 @@ private:
   Encoder tiltEncoderLeft, tiltEncoderRight;
   PIDController shootLoop, tiltLoopLeft, tiltLoopRight;
   DigitalInput tiltSwitchLeft, tiltSwitchRight;
-  Solenoid shootSolenoid;
+  Solenoid shootSolenoid, tiltSolenoid;
   bool shooting, derp;
   float p, i, d;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();
-  void SetTilt(float degreesTilt);
+  void SetTilt(bool tilt);
   void SetSpeed(float speed);
   void SetFire(bool fire);
   void SetShooting(bool enabled);
+  void AutomaticShooting(float delay);
   void Reset();
   double PIDGet();
   void PIDWrite(float output);

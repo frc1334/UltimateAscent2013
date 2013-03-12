@@ -8,7 +8,9 @@ climbMotor1(CLIMB_MOTOR_1), climbMotor2(CLIMB_MOTOR_2),
 climbSolenoid(CLIMB_SOLENOID),
 topSwitch(CLIMB_LIMITSWITCH_TOP), bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
 autoUp(true), topPre(false), bottomPre(false)
-{ }
+{ 
+	
+}
 
 void ClimberSubsystem::InitDefaultCommand()
 {

@@ -12,11 +12,11 @@ private:
 	Joystick Joystick_Test;
 public:
   OI();
-  
+  inline bool GetShootLeftBumper(){ return Joystick_Shoot.GetRawButton(5); }
   inline float GetTrigger() { return Joystick_Shoot.GetZ(); }
   inline bool GetLeftBumper() { return Joystick_Shoot.GetRawButton(5); }
   inline bool GetRightBumper() { return Joystick_Shoot.GetRawButton(6); }
-  inline bool GetFire() { return Joystick_Shoot.GetRawButton(1); }
+  inline bool GetFire() { return Joystick_Shoot.GetRawButton(6); }
   inline float GetFudge() { return Joystick_Shoot.GetTwist(); }
   inline bool GetStart() { return Joystick_Shoot.GetRawButton(8); }
   inline float GetDriveSteering() { return -AddDeadZone(Joystick_Drive.GetX(), 0.15f); } // there's a negative hiding in there
@@ -24,9 +24,11 @@ public:
   inline bool GetShiftUp() { return Joystick_Drive.GetRawButton(5); }
   inline bool GetShiftDown() { return Joystick_Drive.GetRawButton(6); }
   inline bool GetTiltState() { return Joystick_Drive.GetRawButton(2); }
-  inline bool GetDeploy() { return Joystick_Drive.GetRawButton(3); }
+  inline bool GetDeploy() { return Joystick_Shoot.GetRawButton(3); }
   inline bool GetAutoclimb() { return Joystick_Drive.GetRawButton(1); }
-  inline float GetClimbFudge() { return AddDeadZone(Joystick_Drive.GetRawAxis(5), 0.15f); }
+  inline float GetClimbFudge() { return AddDeadZone(Joystick_Shoot.GetRawAxis(5), 0.15f); }
+  inline bool GetShooterTilt() { return Joystick_Shoot.GetRawButton(4);}
+  
   inline bool GetTest1() { return Joystick_Test.GetRawButton(1); }
   inline bool GetTest2() { return Joystick_Test.GetRawButton(2); }
   inline bool GetTest3() { return Joystick_Test.GetRawButton(3); }
