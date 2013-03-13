@@ -14,13 +14,14 @@ private:
 	
 	Talon LeftMotor1, LeftMotor2, RightMotor1, RightMotor2, TiltMotor;
 	Solenoid ShiftSolenoid;
-	DigitalInput TiltSwitchTop, TiltSwitchBottom;
+	//DigitalInput TiltSwitchTop, TiltSwitchBottom;
 public:
     DrivetrainSubsystem();
     void InitDefaultCommand();
     void Drive(float speed, float turn);
     void SetShiftState(bool state);
-    void SetTiltState(bool tilting);
+    void SetTiltState(float speed);
+    inline float GetTiltSpeed() {return TiltMotor.Get();};
     void Reset();
 };
 

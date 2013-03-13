@@ -4,7 +4,7 @@ ShooterControlCommand::ShooterControlCommand()
 {
 	Requires(shootersubsystem);
 	StartPre = LeftBumperPre = RightBumperPre = false;
-	Manual = true;
+	Manual = false;
 	tilt = 0;
 	setPoint = 0;
 	setPoints[0].speed = 0.0f;
@@ -21,12 +21,29 @@ void ShooterControlCommand::Initialize()
 {
 	shootersubsystem->SetShooting(oi->GetTrigger() < -0.9f);
 	shootersubsystem->SetFire(oi->GetFire());
-	while(oi->GetFire())
+	std::cout << "Get Tilt(): " << shootersubsystem->GetTilt() << std::endl;
+	if (oi->GetShooterTilt())
 	{
-		shootersubsystem->SetFire(true);
-		Wait(0.5);
-		shootersubsystem->setFire(false);
+		shootersubsystem->SetTilt(shootersubsystem->GetTilt());
 	}
+	if (oi->GetTrigger() < -0.9f)
+		Manual=true;
+	else
+		Manual = false;
+	if (Manual)
+	{
+		if(setPoint != 5000.0f)
+		{			
+			setPoint=5000.0;
+			shootersubsystem->SetSpeed(setPoint);
+		}
+	}
+	else
+	{
+		shootersubsystem->SetSpeed(0);
+		setPoint=0.0;
+	}
+	
 	/*
 	if (oi->GetStart() && !StartPre)
 		Manual = !Manual;

@@ -25,9 +25,15 @@ public:
   inline bool GetShiftDown() { return Joystick_Drive.GetRawButton(6); }
   inline bool GetTiltState() { return Joystick_Drive.GetRawButton(2); }
   inline bool GetDeploy() { return Joystick_Shoot.GetRawButton(3); }
+  inline bool GetUnDeploy() { return Joystick_Shoot.GetRawButton(7);}
   inline bool GetAutoclimb() { return Joystick_Drive.GetRawButton(1); }
   inline float GetClimbFudge() { return AddDeadZone(Joystick_Shoot.GetRawAxis(5), 0.15f); }
   inline bool GetShooterTilt() { return Joystick_Shoot.GetRawButton(4);}
+
+  
+  //DEBUG BOT TILT COMMANDs
+  inline bool GetTiltBotUp() { return Joystick_Drive.GetRawButton(3); }
+  inline bool GetTiltBotDown() { return Joystick_Drive.GetRawButton(4);}
   
   inline bool GetTest1() { return Joystick_Test.GetRawButton(1); }
   inline bool GetTest2() { return Joystick_Test.GetRawButton(2); }

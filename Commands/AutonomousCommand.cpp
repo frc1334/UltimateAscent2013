@@ -8,12 +8,12 @@ AutonomousCommand::AutonomousCommand()
 
 void AutonomousCommand::Initialize()
 {
-	shootersubsystem->SetTilt(true);
+	
 }
 
 void AutonomousCommand::Execute()
 {
-	shootersubsystem->SetTilt(false);
+	
 }
 
 bool AutonomousCommand::IsFinished()

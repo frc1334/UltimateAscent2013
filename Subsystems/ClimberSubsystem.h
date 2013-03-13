@@ -7,7 +7,7 @@
 class ClimberSubsystem: public Subsystem
 {
 private:
-	Solenoid climbSolenoid;
+	Solenoid climbSolenoid, climbResetSolenoid;
 	bool autoUp, topPre, bottomPre;
 public:
 	Talon climbMotor1, climbMotor2;
@@ -16,6 +16,7 @@ public:
   void InitDefaultCommand();
   void Reset();
   void Deploy();
+  void UnDeploy();
   bool IsDeployed();
   void ManualSet(float speed);
   void AutomaticRun();

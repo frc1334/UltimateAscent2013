@@ -11,7 +11,6 @@ private:
   {
     CommandBase::init();
     SmartDashboard::init();
-    compressor = new Compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY);
   }
 
   virtual void AutonomousInit()
@@ -24,7 +23,6 @@ private:
 
   virtual void TeleopInit()
   {
-	  compressor->Start();
   }
 
   virtual void TeleopPeriodic()

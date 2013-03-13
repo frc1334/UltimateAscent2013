@@ -68,10 +68,7 @@ void ShooterSubsystem::Reset()
 
 void ShooterSubsystem::SetTilt(bool tilt) // Set the shoot solenoid to  activate the 2 pistons that elevate the shooter
 {
-	if(!tiltSolenoid.Get())
-	{
-		tiltSolenoid.Set(true);	
-	}
+	tiltSolenoid.Set(!tilt);
 }
 
 double ShooterSubsystem::PIDGet()
@@ -105,7 +102,7 @@ void ShooterSubsystem::AutomaticShooting(float delay)
 }
 void ShooterSubsystem::Debug()
 {
-	if (CommandBase::oi->GetTest1() && !derp)
+	/*if (CommandBase::oi->GetTest1() && !derp)
 		p += 0.0001f;
 	if (CommandBase::oi->GetTest2() && !derp)
 		p -= 0.0001f;
@@ -118,14 +115,12 @@ void ShooterSubsystem::Debug()
 	if (CommandBase::oi->GetTest4() && !derp)
 		d -= 0.0001f;
 	
-	//tiltLoopLeft.SetPID(p, i, d);
-	//tiltLoopRight.SetPID(p, i, d);
 	derp = CommandBase::oi->GetTest1() || CommandBase::oi->GetTest2() || CommandBase::oi->GetTest3() || CommandBase::oi->GetTest4() || CommandBase::oi->GetTest5() || CommandBase::oi->GetTest6();
 	if (CommandBase::oi->GetTest7())
 	{
 		tiltEncoderLeft.Reset();
 		tiltEncoderRight.Reset();
-	}
+	}*/
 	
 	std::cout << "Setpoint: " << shootLoop.GetSetpoint();
 	if (shootEncoder.GetPeriod()>0 && shootEncoder.GetPeriod()<1){

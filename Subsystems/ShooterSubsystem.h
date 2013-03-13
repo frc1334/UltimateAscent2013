@@ -35,6 +35,7 @@ public:
   double PIDGet();
   void PIDWrite(float output);
   void Debug();
+  inline bool GetTilt() {return tiltSolenoid.Get();};
 };
 
 #endif

@@ -5,8 +5,8 @@
 
 DrivetrainSubsystem::DrivetrainSubsystem():Subsystem("DrivetrainSubsystem"),
 LeftMotor1(LEFT_MOTOR_1), LeftMotor2(LEFT_MOTOR_2), RightMotor1(RIGHT_MOTOR_1), RightMotor2(RIGHT_MOTOR_2), TiltMotor(TILT_MOTOR),
-ShiftSolenoid(DRIVE_SOLENOID),
-TiltSwitchTop(TILT_LIMIT_SWITCH_TOP), TiltSwitchBottom(TILT_LIMIT_SWITCH_BOTTOM)
+ShiftSolenoid(DRIVE_SOLENOID)
+
 {
 }
 
@@ -28,16 +28,17 @@ void DrivetrainSubsystem::SetShiftState(bool state)
 	ShiftSolenoid.Set(state);
 }
 
-void DrivetrainSubsystem::SetTiltState(bool tilting)
+void DrivetrainSubsystem::SetTiltState(float speed)
 {
-	TiltMotor.Set(tilting ? 1.0f : -1.0f);
-	if ((tilting ? TiltSwitchTop : TiltSwitchBottom).Get())
-		TiltMotor.Set(0.0f);
+	TiltMotor.Set(speed);
+	//TiltMotor.Set(tilting ? 1.0f : -1.0f);
+	//if ((tilting ? TiltSwitchTop : TiltSwitchBottom).Get())
+	//	TiltMotor.Set(0.0f);
 }
 
 void DrivetrainSubsystem::Reset()
 {
-	TiltMotor.Set(1.0f);
-	while (TiltSwitchTop.Get()) {}
-	TiltMotor.Set(0.0f);
+	//TiltMotor.Set(1.0f);
+	//while (TiltSwitchTop.Get()) {}
+	//TiltMotor.Set(0.0f);
 }
