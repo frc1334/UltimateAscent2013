@@ -33,6 +33,7 @@ public:
   //////////////////////////
   inline float GetTrigger() { return Joystick_Shoot.GetZ(); }
   inline float GetClimbJoystick() { return AddDeadZone(Joystick_Shoot.GetRawAxis(5), 0.15f); }
+  inline bool GetAutoFire() { return Joystick_Shoot.GetRawButton(1); }
   inline bool GetDeploy() { return Joystick_Shoot.GetRawButton(3); }
   inline bool GetShooterTilt() { return Joystick_Shoot.GetRawButton(4);}
   inline bool GetShootLeftBumper(){ return Joystick_Shoot.GetRawButton(5); }

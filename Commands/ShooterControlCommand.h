@@ -17,8 +17,9 @@ private:
 		SetPoint(float t, float s) : tilt(t), speed(s) {}
 	} setPoints[SETPOINT_COUNT];
 	
-	bool m_buttonlatch;	//STOPS CONTROLLER BUTTON BOUNCING
+	bool m_buttonlatch, autofire;	//STOPS CONTROLLER BUTTON BOUNCING
 	int setPoint;		//HARDCODED SHOOTER WHEEL SPEED
+	Timer *m_autofire_timer;
 public:
 	ShooterControlCommand();
 	virtual void Initialize();
@@ -26,6 +27,7 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	void Autofire();
 };
  
 #endif
