@@ -4,11 +4,10 @@
 #include "../PIDOutputMultiplexer.h"
 
 ClimberSubsystem::ClimberSubsystem() : Subsystem("ClimberSubsystem"),
+climbSolenoid(CLIMB_SOLENOID),climbResetSolenoid(CLIMB_RESET),
+autoUp(true), topPre(false), bottomPre(false),
 climbMotor1(CLIMB_MOTOR_1), climbMotor2(CLIMB_MOTOR_2),
-climbSolenoid(CLIMB_SOLENOID),
-climbResetSolenoid(CLIMB_RESET),
-topSwitch(CLIMB_LIMITSWITCH_TOP), bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM),
-autoUp(true), topPre(false), bottomPre(false)
+topSwitch(CLIMB_LIMITSWITCH_TOP), bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM)
 { 
 	
 }
@@ -21,48 +20,64 @@ void ClimberSubsystem::InitDefaultCommand()
 void ClimberSubsystem::Reset()
 {
 	std::cout << "Reset." << std::endl;
+	climbMotor1.Set(0.0f);
+	climbMotor2.Set(0.0f);
 }
 
+//IF CALLED THE ROBOT WILL DEPLOY THE CLIMBER (TILT IT TOWARDS THE PYRAMID)
 void ClimberSubsystem::Deploy()
 {
+	if (IsDeployed()){				//ONLY CHANGE THE SOLENOIDS IF THE CLIMBER IS NOT DEPLOYED
 	climbSolenoid.Set(true);
-	climbResetSolenoid.Set(false);	
+	climbResetSolenoid.Set(false);
+	}
 }
 
+//IF CALLED THE ROBOT WILL UNDEPLOY THE CLIMBER (TILT IT AWAY FROM THE PYRAMID)
 void ClimberSubsystem::UnDeploy()
 {
+	if (!IsDeployed()){				//ONLY CHANGE THE SOLENOIDS IF THE CLIMBER IS DEPLOYED
 	climbSolenoid.Set(false);
-	climbResetSolenoid.Set(true);
+	climbResetSolenoid.Set(true);}
 }
 
-bool ClimberSubsystem::IsDeployed()
-{
-	return climbSolenoid.Get();
-}
-
+//MANUALLY CONTROLS THE CLIMBER MOTOR SPEEDS FROM THE SHOOTER JOYSTICK
 void ClimberSubsystem::ManualSet(float speed)
 {
+	//IF THE DRIVER TRIES TO DRIVE THE CLIMBER PAST THE TOP SWITCH, STOP THEM
 	if (topSwitch.Get() && (speed < 0 || speed < 0))
 	{
 		climbMotor1.Set(0.0f);
 		climbMotor2.Set(0.0f);
 	}
-	else if (bottomSwitch.Get() && (speed > 0 || speed > 0))
+	else if (bottomSwitch.Get() && (speed > 0 || speed > 0))	//IF THE DRIVER TRIES TO DRIVE PAST THE BOTTOM SWITCH, STOP THEM
 	{
 		climbMotor1.Set(0.0f);
 		climbMotor2.Set(0.0f);
 	}
-	else
+	else	//IF NO SWITCHES ARE HIT, ALLOW DRIVER TO MOVE CLIMBER BOTH WAYS.
 	{
-		climbMotor1.Set(speed);
-		climbMotor2.Set(speed);
+		if(fabs(speed) <= 0.15f){
+			climbMotor1.Set(speed);
+			climbMotor2.Set(speed);
+		}
 	}
 }
+
+//AUTOMATIC CLIMB CODE - TO BE FINISHED
 void ClimberSubsystem::AutomaticRun()
 {
-	this->ManualSet(autoUp ? -0.2f : 0.2f);
+	/*ManualSet(autoUp ? -0.2f : 0.2f);
 	if (!topSwitch.Get())
 		autoUp = false;
 	if (!bottomSwitch.Get())
 		autoUp = true;
+	*/
+}
+
+//Any information that should go out to console when debugging climbing.
+void ClimberSubsystem::Debug()
+{
+	std::cout << bottomSwitch.Get() << " " 	<< topSwitch.Get() << " " << climbMotor1.Get() 
+			<< " " << climbMotor2.Get() << std::endl;
 }

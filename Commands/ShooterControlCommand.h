@@ -16,9 +16,9 @@ private:
 		SetPoint() : tilt(0.0f), speed(0.0f) {}
 		SetPoint(float t, float s) : tilt(t), speed(s) {}
 	} setPoints[SETPOINT_COUNT];
-	bool LeftBumperPre, RightBumperPre, StartPre, Manual;
-	float tilt;
-	int setPoint;
+	
+	bool m_buttonlatch;	//STOPS CONTROLLER BUTTON BOUNCING
+	int setPoint;		//HARDCODED SHOOTER WHEEL SPEED
 public:
 	ShooterControlCommand();
 	virtual void Initialize();

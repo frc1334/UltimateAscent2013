@@ -6,21 +6,15 @@
 class DrivetrainSubsystem : public Subsystem
 {
 private:
-	static const float tiltP = 0.0f;
-	static const float tiltI = 0.0f;
-	static const float tiltD = 0.0f;
-	static const float tiltUp = 0.0f;
-	static const float tiltDown = 1000.0f;
-	
 	Talon LeftMotor1, LeftMotor2, RightMotor1, RightMotor2, TiltMotor;
 	Solenoid ShiftSolenoid;
 	//DigitalInput TiltSwitchTop, TiltSwitchBottom;
 public:
     DrivetrainSubsystem();
     void InitDefaultCommand();
-    void Drive(float speed, float turn);
-    void SetShiftState(bool state);
-    void SetTiltState(float speed);
+    void Drive(float speed, float turn);						//SETS DRIVETRAIN MOTOR SPEEDS
+    void SetShiftState(bool state);								//SETS DRIVETRAIN GEAR SHIFT
+    void SetTiltSpeed(float speed);						//SETS TILT MOTOR FROM JOYSTICK
     inline float GetTiltSpeed() {return TiltMotor.Get();};
     void Reset();
 };

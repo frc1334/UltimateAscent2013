@@ -5,8 +5,6 @@
 class UltimateAscentBot : public IterativeRobot
 {
 private:
-  Compressor *compressor;
-	
   virtual void RobotInit()
   {
     CommandBase::init();
@@ -28,7 +26,6 @@ private:
   virtual void TeleopPeriodic()
   {
 	  Scheduler::GetInstance()->Run();
-	  CommandBase::shootersubsystem->Debug();
   }
 };
 

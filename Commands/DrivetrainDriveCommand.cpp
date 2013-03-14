@@ -12,28 +12,36 @@ void DrivetrainDriveCommand::Initialize()
 
 void DrivetrainDriveCommand::Execute()
 {
+	//////////////////////
+	// DRIVE MOTOR CODE //
+	//////////////////////
 	drivetrainsubsystem->Drive(oi->GetDriveThrottle(), oi->GetDriveSteering());
+	
+	///////////////////////////
+	// DRIVE GEAR SHIFT CODE //
+	///////////////////////////
 	if (oi->GetShiftUp() && !shiftUpPre)
 		drivetrainsubsystem->SetShiftState(true);
 	if (oi->GetShiftDown() && !shiftDownPre)
 		drivetrainsubsystem->SetShiftState(false);
-	//if (oi->GetTiltState() && !tiltPre)
-		//tilt = !tilt;
-	if (oi->GetTiltBotUp())
-	{
-		drivetrainsubsystem->SetTiltState(1.0f);
-	}
-	else if (oi->GetTiltBotDown())
-	{
-		drivetrainsubsystem->SetTiltState(-1.0f);
-	}
-	else
-	{
-		drivetrainsubsystem->SetTiltState(0.0f);
-	}
 	shiftUpPre = oi->GetShiftUp();
 	shiftDownPre = oi->GetShiftDown();
-	//tiltPre = oi->GetTiltState();
+	//////////////////////////////////
+	// END OF DRIVE GEAR SHIFT CODE //
+	//////////////////////////////////
+	
+	//////////////////////////
+	// DRIVETRAIN TILT CODE //
+	//////////////////////////
+	if (oi->GetTiltBotUp())
+		drivetrainsubsystem->SetTiltSpeed(1.0f);
+	else if (oi->GetTiltBotDown())
+		drivetrainsubsystem->SetTiltSpeed(-1.0f);
+	else
+		drivetrainsubsystem->SetTiltSpeed(0.0f);
+	/////////////////////////////////
+	// END OF DRIVETRAIN TILT CODE //
+	/////////////////////////////////
 }
 
 bool DrivetrainDriveCommand::IsFinished()

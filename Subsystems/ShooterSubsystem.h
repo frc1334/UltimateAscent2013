@@ -7,35 +7,28 @@
 class ShooterSubsystem : public Subsystem, public PIDSource, public PIDOutput
 {
 private:
-  static const float tiltP  = 0.0f;
-  static const float tiltI  = 0.000002f;
-  static const float tiltD  = 0.0f;
   static const float shootP = 0.00156f;
   static const float shootI = 0.00891f;
   static const float shootD = 0.0000683f;
-  static const float tiltTravel = 4000;
 
-  Talon shootMotor, tiltMotorLeft, tiltMotorRight;
+  Talon shootMotor;
   GearTooth shootEncoder;
-  Encoder tiltEncoderLeft, tiltEncoderRight;
-  PIDController shootLoop, tiltLoopLeft, tiltLoopRight;
-  DigitalInput tiltSwitchLeft, tiltSwitchRight;
+  PIDController shootLoop;
   Solenoid shootSolenoid, tiltSolenoid;
-  bool shooting, derp;
-  float p, i, d;
+  bool shootingWheelEnabled;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();
-  void SetTilt(bool tilt);
-  void SetSpeed(float speed);
-  void SetFire(bool fire);
-  void SetShooting(bool enabled);
-  void AutomaticShooting(float delay);
+  void SetTilt(bool tilt);		//SETS SHOOTER TILT SOLENOIDS
+  void SetSpeed(float speed);	//SETS SHOOTER WHEEL SPEED SETPOINT IN RPM
+  void SetFire(bool fire);		//SETS SHOOTER DISK FEED SOLENOID
+  void ToggleShooterWheel(bool state);	//TOGGLES SHOOTER WHEEL ON/OFF
   void Reset();
-  double PIDGet();
-  void PIDWrite(float output);
-  void Debug();
+  double PIDGet();				//RETURNS SHOOTER WHEEL SPEED IN RPM
+  void PIDWrite(float output);	//DO NOT USE
+  void Debug();					//DEBUG CONSOLE
   inline bool GetTilt() {return tiltSolenoid.Get();};
+  inline float GetSpeedSetpoint(){return shootLoop.GetSetpoint();};
 };
 
 #endif

@@ -3,11 +3,6 @@
 
 #include "../CommandBase.h"
 
-/**
- *
- *
- * @author p
- */
 class DrivetrainDriveCommand: public CommandBase
 {
 private:

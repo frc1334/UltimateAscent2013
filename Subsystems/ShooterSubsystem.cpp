@@ -3,38 +3,17 @@
 #include "../Robotmap.h"
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
- shootMotor(SHOOT_MOTOR), tiltMotorLeft(TILT_MOTOR_LEFT), tiltMotorRight(TILT_MOTOR_RIGHT), shootEncoder(SHOOT_ENCODER),
- tiltEncoderLeft(TILT_ENCODER_LEFT_A, TILT_ENCODER_LEFT_B, true, CounterBase::k1X), tiltEncoderRight(TILT_ENCODER_RIGHT_A, TILT_ENCODER_RIGHT_B, true, CounterBase::k1X),
- shootLoop(shootP, shootI, shootD, this, this),
- tiltLoopLeft(tiltP, tiltI, tiltD, &tiltEncoderLeft, &tiltMotorLeft), tiltLoopRight(tiltP, tiltI, tiltD, &tiltEncoderRight, &tiltMotorRight),
- tiltSwitchLeft(TILT_SWITCH_LEFT), tiltSwitchRight(TILT_SWITCH_RIGHT),
- shootSolenoid(SHOOT_SOLENOID),
- tiltSolenoid(SHOOT_TILT_SOLENOID),
- shooting(false)
+ shootMotor(SHOOT_MOTOR), shootEncoder(SHOOT_ENCODER), shootLoop(shootP, shootI, shootD, this, this),
+ shootSolenoid(SHOOT_SOLENOID), tiltSolenoid(SHOOT_TILT_SOLENOID), shootingWheelEnabled(true)
 {
-	p = i = d = 0;
-	shootLoop.SetInputRange(0.0f, 7000.0f);
-	shootLoop.SetOutputRange(0.0f, 1.0f);
-	SetSpeed(0.0f);
-	shootEncoder.Reset();
-	shootEncoder.SetMaxPeriod(1.0f);
+	shootLoop.SetInputRange(0.0f, 7000.0f);	//LIMIT SHOOTER WHEEL TO 0-7000 RPM
+	shootLoop.SetOutputRange(0.0f, 1.0f);	//LIMIT SHOOTER WHEEL TO ONLY DRIVE FORWARD
+	SetSpeed(0.0f);							//SET SHOOTER WHEEL SPEED TO 0
+	shootEncoder.Reset();					
+	shootEncoder.SetMaxPeriod(1.0f);		
 	shootEncoder.Start();
-	shootLoop.SetTolerance(0.01f);
-	shootLoop.Enable();
-
-	tiltEncoderLeft.SetDistancePerPulse(0.01);
-	tiltEncoderRight.SetDistancePerPulse(0.01);
-	tiltLoopLeft.SetContinuous(false);
-	tiltLoopRight.SetContinuous(false);
-	tiltLoopLeft.SetInputRange(-2500.0f, 2500.0f);
-	tiltLoopRight.SetInputRange(-2500.0f, 2500.0f);
-	tiltLoopLeft.SetOutputRange(-1.0f, 1.0f);
-	tiltLoopRight.SetOutputRange(-1.0f, 1.0f);
-	tiltLoopLeft.SetSetpoint(0.0f);
-	tiltLoopRight.SetSetpoint(0.0f);
-	tiltLoopLeft.SetTolerance(0.01f);
-	tiltLoopRight.SetTolerance(0.01f);
-	derp = false;
+	shootLoop.SetTolerance(0.005f);			//SHOOTER WHEEL RPM TOLERANCE IS 0.5%
+	shootLoop.Enable();						//ENABLE SHOOTER WHEEL PID LOOP
 }
 
 void ShooterSubsystem::InitDefaultCommand()
@@ -49,59 +28,53 @@ inline float Map(float minIn, float maxIn, float minOut, float maxOut, float val
 
 void ShooterSubsystem::Reset()
 {
-	/*tiltMotorLeft.Set(0.01f);
-	tiltMotorRight.Set(0.01f);
-	while (tiltSwitchLeft.Get() || tiltSwitchRight.Get())
-	{
-		if (tiltSwitchLeft.Get())
-			tiltMotorLeft.Set(0.0f);
-		if (tiltSwitchRight.Get())
-			tiltMotorRight.Set(0.0f);
-	}*/
-	tiltEncoderLeft.Reset();
-	tiltEncoderRight.Reset();
-	tiltEncoderLeft.Start();
-	tiltEncoderRight.Start();
-	tiltLoopLeft.Disable();
-	tiltLoopRight.Disable();
+
 }
 
-void ShooterSubsystem::SetTilt(bool tilt) // Set the shoot solenoid to  activate the 2 pistons that elevate the shooter
+// Set the shoot solenoid to  activate the 2 pistons that elevate the shooter
+void ShooterSubsystem::SetTilt(bool tilt) 
 {
 	tiltSolenoid.Set(!tilt);
 }
 
+//Returns shooter wheel speed in RPM
 double ShooterSubsystem::PIDGet()
 {
 	return (30.0f / shootEncoder.GetPeriod());
 }
 
+//Do not use
 void ShooterSubsystem::PIDWrite(float output)
 {
 	shootMotor.Set(output * -1.0f);
 }
 
-void ShooterSubsystem::SetSpeed(float speed)
+// Turns shooter wheel on (True) or off (false)
+void ShooterSubsystem::ToggleShooterWheel(bool state)
 {
-	shootLoop.SetSetpoint((shooting) ? speed : (0.0f));
+	shootingWheelEnabled = state;
 }
 
+//Sets shooter wheel RPM setpoint for PID Controller
+void ShooterSubsystem::SetSpeed(float speed)
+{
+	//If shooting is true set speed to passed setpoint, otherwise set the shooter wheel to 0 RPM.
+	shootLoop.SetSetpoint((shootingWheelEnabled) ? speed : (0.0f));
+}
+
+//Toggles the disk feed solenoid between shooting (True) and feeding (False)
 void ShooterSubsystem::SetFire(bool fire)
 {
 	shootSolenoid.Set(fire);
 }
 
-void ShooterSubsystem::SetShooting(bool enabled)
-{
-	shooting = enabled;
-}
-void ShooterSubsystem::AutomaticShooting(float delay)
-{
-	 SetFire(true);
-	 SetShooting(true);
-}
+//Debug console for ShooterSubsystem. Contains PID Tuning Code.
 void ShooterSubsystem::Debug()
 {
+	std::cout << "Motor Speed: " << shootMotor.Get() << " || Shooter Speed: " << PIDGet() << std::endl;
+	std::cout << "Shoot Enabled: " << shootingWheelEnabled << " || Shoot Setpoint: " << shootLoop.GetSetpoint() << std::endl;
+	std::cout << " ============= " << std::endl;
+		
 	/*if (CommandBase::oi->GetTest1() && !derp)
 		p += 0.0001f;
 	if (CommandBase::oi->GetTest2() && !derp)
@@ -116,21 +89,7 @@ void ShooterSubsystem::Debug()
 		d -= 0.0001f;
 	
 	derp = CommandBase::oi->GetTest1() || CommandBase::oi->GetTest2() || CommandBase::oi->GetTest3() || CommandBase::oi->GetTest4() || CommandBase::oi->GetTest5() || CommandBase::oi->GetTest6();
-	if (CommandBase::oi->GetTest7())
-	{
-		tiltEncoderLeft.Reset();
-		tiltEncoderRight.Reset();
-	}*/
-	
-	std::cout << "Setpoint: " << shootLoop.GetSetpoint();
-	if (shootEncoder.GetPeriod()>0 && shootEncoder.GetPeriod()<1){
-		std::cout << "|| Enc Rate: " << 30.0f / shootEncoder.GetPeriod() <<std::endl;
+
 	}
-	std::cout << "===========" << std::endl;
-	
-	//std::cout << "Setpoint:" << shootLoop.GetSetpoint() << " P: " << shootLoop.GetP() << " I: " << shootLoop.GetI() << " D: " << shootLoop.GetD() << (30.0f / shootEncoder.GetPeriod()) << std::endl;
-	/*std::cout << "Left OT: " << tiltLoopLeft.OnTarget() << " || Right OT: " << tiltLoopRight.OnTarget() << std::endl;
-	std::cout << "Setpoint: " << tiltLoopLeft.GetSetpoint() << " || P,I,D: " << tiltLoopLeft.GetP() << ", " << tiltLoopLeft.GetI() << ", " << tiltLoopLeft.GetD() << std::endl;
-	std::cout << tiltEncoderLeft.GetDistance() << ", " << tiltEncoderRight.GetDistance() << " " << tiltMotorLeft.Get() << ", " << tiltMotorRight.Get() << std::endl;
-	std::cout <<"==================" << std::endl;*/
+	std::cout << "===========" << std::endl;*/
 }
