@@ -17,7 +17,7 @@
 #define CLIMB_LIMITSWITCH_BOTTOM	4
 #define CLIMB_LIMITSWITCH_TOP		5
 #define CLIMB_SOLENOID				1
-#define CLIMB_RESET                 4
+#define CLIMB_RESET                 5
 #define LEFT_MOTOR_1				2
 #define LEFT_MOTOR_2				3
 #define RIGHT_MOTOR_1				9

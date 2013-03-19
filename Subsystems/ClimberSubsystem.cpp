@@ -8,8 +8,9 @@ climbSolenoid(CLIMB_SOLENOID),climbResetSolenoid(CLIMB_RESET),
 autoUp(true), topPre(false), bottomPre(false),
 climbMotor1(CLIMB_MOTOR_1), climbMotor2(CLIMB_MOTOR_2),
 topSwitch(CLIMB_LIMITSWITCH_TOP), bottomSwitch(CLIMB_LIMITSWITCH_BOTTOM)
-{ 
-	
+{
+	climbMotor1.Set(0.0f);
+	climbMotor2.Set(0.0f);
 }
 
 void ClimberSubsystem::InitDefaultCommand()
@@ -17,28 +18,24 @@ void ClimberSubsystem::InitDefaultCommand()
 	SetDefaultCommand(new ClimberCommand());
 }
 
-void ClimberSubsystem::Reset()
-{
-	std::cout << "Reset." << std::endl;
-	climbMotor1.Set(0.0f);
-	climbMotor2.Set(0.0f);
-}
-
 //IF CALLED THE ROBOT WILL DEPLOY THE CLIMBER (TILT IT TOWARDS THE PYRAMID)
 void ClimberSubsystem::Deploy()
 {
-	if (IsDeployed()){				//ONLY CHANGE THE SOLENOIDS IF THE CLIMBER IS NOT DEPLOYED
-	climbSolenoid.Set(true);
-	climbResetSolenoid.Set(false);
+	if (IsDeployed())				//ONLY CHANGE THE SOLENOIDS IF THE CLIMBER IS NOT DEPLOYED
+	{
+		climbSolenoid.Set(true);
+		climbResetSolenoid.Set(false);
 	}
 }
 
 //IF CALLED THE ROBOT WILL UNDEPLOY THE CLIMBER (TILT IT AWAY FROM THE PYRAMID)
 void ClimberSubsystem::UnDeploy()
 {
-	if (!IsDeployed()){				//ONLY CHANGE THE SOLENOIDS IF THE CLIMBER IS DEPLOYED
-	climbSolenoid.Set(false);
-	climbResetSolenoid.Set(true);}
+	if (!IsDeployed())				//ONLY CHANGE THE SOLENOIDS IF THE CLIMBER IS DEPLOYED
+	{
+		climbSolenoid.Set(false);
+		climbResetSolenoid.Set(true);
+	}
 }
 
 //MANUALLY CONTROLS THE CLIMBER MOTOR SPEEDS FROM THE SHOOTER JOYSTICK
@@ -57,23 +54,28 @@ void ClimberSubsystem::ManualSet(float speed)
 	}
 	else	//IF NO SWITCHES ARE HIT, ALLOW DRIVER TO MOVE CLIMBER BOTH WAYS.
 	{
-		if(fabs(speed) <= 0.15f){
+		if(fabs(speed) >= 0.3f){
 			climbMotor1.Set(speed);
 			climbMotor2.Set(speed);
+		}
+		else
+		{
+			climbMotor1.Set(0.0f);
+			climbMotor2.Set(0.0f);
 		}
 	}
 }
 
-//AUTOMATIC CLIMB CODE - TO BE FINISHED
-void ClimberSubsystem::AutomaticRun()
-{
+//AUTOMATIC CLIMB CODE - TO BE EXTERMINATED
+//void ClimberSubsystem::AutomaticRun()
+//{
 	/*ManualSet(autoUp ? -0.2f : 0.2f);
 	if (!topSwitch.Get())
 		autoUp = false;
 	if (!bottomSwitch.Get())
 		autoUp = true;
 	*/
-}
+//}
 
 //Any information that should go out to console when debugging climbing.
 void ClimberSubsystem::Debug()

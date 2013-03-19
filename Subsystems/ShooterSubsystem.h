@@ -16,19 +16,22 @@ private:
   PIDController shootLoop;
   Solenoid shootSolenoid, tiltSolenoid;
   bool shootingWheelEnabled;
+  int debug_console_delay_counter;
+  Timer g_timer;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();
   void SetTilt(bool tilt);		//SETS SHOOTER TILT SOLENOIDS
   void SetSpeed(float speed);	//SETS SHOOTER WHEEL SPEED SETPOINT IN RPM
   void SetFire(bool fire);		//SETS SHOOTER DISK FEED SOLENOID
+  inline bool GetFire() { return shootSolenoid.Get(); }
   void ToggleShooterWheel(bool state);	//TOGGLES SHOOTER WHEEL ON/OFF
-  void Reset();
   double PIDGet();				//RETURNS SHOOTER WHEEL SPEED IN RPM
   void PIDWrite(float output);	//DO NOT USE
   void Debug();					//DEBUG CONSOLE
-  inline bool GetTilt() {return tiltSolenoid.Get();};
-  inline float GetSpeedSetpoint(){return shootLoop.GetSetpoint();};
+  inline float GetSpeedSetpoint(){return shootLoop.GetSetpoint(); }
+  bool Jiggly();
+  bool ShootDiscs(unsigned int shots_fire);
 };
 
 #endif

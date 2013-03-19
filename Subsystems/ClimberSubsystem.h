@@ -14,13 +14,13 @@ public:
 	DigitalInput topSwitch, bottomSwitch;
   ClimberSubsystem();
   void InitDefaultCommand();
-  void Reset();
   void Deploy();				//TILTS CLIMBER AWAY FROM ROBOT
   void UnDeploy();				//TILTS CLIMBER BACK ONTO ROBOT
   bool IsDeployed() {return climbSolenoid.Get();};			//RETURNS IF THE CLIMBER IS DEPLOYED
   void ManualSet(float speed);	//SETS THE CLIMBER MOTORS FROM THE SHOOTER JOYSTICK
-  void AutomaticRun();			//AUTOMATICALLY CLIMBS THE PYRAMID
+//  void AutomaticRun();			//AUTOMATICALLY CLIMBS THE PYRAMID
   void Debug();					//DEBUG TEXT FOR CONSOLE
+  
 };
 
 #endif

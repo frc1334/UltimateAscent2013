@@ -7,7 +7,6 @@ ClimberCommand::ClimberCommand()
 
 void ClimberCommand::Initialize()
 {
-	climbersubsystem->Reset();
 }
 
 void ClimberCommand::Execute()
@@ -24,7 +23,9 @@ void ClimberCommand::Execute()
 	// END OF CLIMBER TILT SOLENOID CODE //
 	///////////////////////////////////////
 	
-	//climbersubsystem->Debug();	//Debug text to console.
+#ifdef CONSOLE_DEBUG
+	climbersubsystem->Debug();	//Debug text to console.
+#endif
 		
 	climbersubsystem->ManualSet(oi->GetClimbJoystick());		
 }
