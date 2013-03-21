@@ -11,7 +11,6 @@ private:
 	bool autoUp, topPre, bottomPre;
 public:
 	Talon climbMotor1, climbMotor2;
-	DigitalInput topSwitch, bottomSwitch;
   ClimberSubsystem();
   void InitDefaultCommand();
   void Deploy();				//TILTS CLIMBER AWAY FROM ROBOT

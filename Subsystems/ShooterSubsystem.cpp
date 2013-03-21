@@ -12,7 +12,7 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	shootEncoder.Reset();					
 	shootEncoder.SetMaxPeriod(1.0f);		
 	shootEncoder.Start();
-	shootLoop.SetTolerance(0.005f);			//SHOOTER WHEEL RPM TOLERANCE IS 0.5%
+	shootLoop.SetAbsoluteTolerance(200.0f);			//SHOOTER WHEEL RPM TOLERANCE is 200 RPM
 	shootLoop.Enable();						//ENABLE SHOOTER WHEEL PID LOOP
 #ifdef DEBUG_CONSOLE
 	debug_console_delay_counter = 0;
@@ -96,11 +96,10 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 {
 	static unsigned int shots_fired = 0;
 	static bool triggered_shot = false;
-	cout << g_timer.Get() << " " << shots_fired << " " << triggered_shot;
+	cout << g_timer.Get() << " " << shots_fired << " " << triggered_shot << " " << shootLoop.OnTarget() << endl;
 	if (shots_fired < shots_fire)
 		if (shootLoop.OnTarget() && !triggered_shot)
 		{
-			++shots_fired;
 			SetFire(triggered_shot = true);
 			g_timer.Start();
 		}
@@ -109,12 +108,16 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 		shots_fired = 0;
 		g_timer.Reset();
 		g_timer.Stop();
-		SetFire(triggered_shot = false);
+		triggered_shot = false;
+		SetFire(false);
 		return true;
 	}
+	if (g_timer.HasPeriodPassed(0.25f))
+		SetFire(false);
 	if (g_timer.HasPeriodPassed(1.0f))
 	{
 		triggered_shot = false;
+		++shots_fired;
 		g_timer.Reset();
 		g_timer.Stop();
 	}

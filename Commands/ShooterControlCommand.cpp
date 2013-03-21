@@ -30,11 +30,11 @@ void ShooterControlCommand::Execute()
 		
 		if (oi->GetAutoFire())
 			shootersubsystem->ShootDiscs(100);
+		else
+			shootersubsystem->SetFire(oi->GetFire());
 	}
 	else
 		m_buttonlatch = false;
-	
-	shootersubsystem->SetFire(oi->GetFire());
 
 	///////////////////////////////////
 	// End of Shooter Tilt/Fire Code //
