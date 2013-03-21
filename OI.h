@@ -1,4 +1,4 @@
-#define DEBUG_CONSOLE // comment out to remove consoling
+//#define DEBUG_CONSOLE // comment out to remove consoling
 
 #ifndef OI_H
 #define OI_H
