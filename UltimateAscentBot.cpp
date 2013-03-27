@@ -7,12 +7,15 @@ class UltimateAscentBot : public IterativeRobot
 {
 private:
 	Command *autonomousCommand;
+	Compressor *compressor;
 
   virtual void RobotInit()
   {
     CommandBase::init();
     SmartDashboard::init();
     autonomousCommand = new AutonomousShootCommand();
+    compressor = new Compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY);
+    compressor->Start();
   }
 
   virtual void AutonomousInit()

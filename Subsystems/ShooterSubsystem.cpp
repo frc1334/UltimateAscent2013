@@ -4,7 +4,7 @@
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), shootEncoder(SHOOT_ENCODER), shootLoop(shootP, shootI, shootD, this, this),
- shootSolenoid(SHOOT_SOLENOID), tiltSolenoid(SHOOT_TILT_SOLENOID), shootingWheelEnabled(true), g_timer()
+ shootSolenoid(SHOOT_SOLENOID), tiltSolenoid(SHOOT_TILT_SOLENOID), g_timer()
 {
 	shootLoop.SetInputRange(0.0f, 7000.0f);	//LIMIT SHOOTER WHEEL TO 0-7000 RPM
 	shootLoop.SetOutputRange(0.0f, 1.0f);	//LIMIT SHOOTER WHEEL TO ONLY DRIVE FORWARD
@@ -12,7 +12,7 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	shootEncoder.Reset();					
 	shootEncoder.SetMaxPeriod(1.0f);		
 	shootEncoder.Start();
-	shootLoop.SetAbsoluteTolerance(200.0f);			//SHOOTER WHEEL RPM TOLERANCE is 200 RPM
+	shootLoop.SetAbsoluteTolerance(250.0f);			//SHOOTER WHEEL RPM TOLERANCE is 200 RPM
 	shootLoop.Enable();						//ENABLE SHOOTER WHEEL PID LOOP
 #ifdef DEBUG_CONSOLE
 	debug_console_delay_counter = 0;
@@ -49,24 +49,16 @@ void ShooterSubsystem::PIDWrite(float output)
 	shootMotor.Set(output * -1.0f);
 }
 
-// Turns shooter wheel on (True) or off (false)
-void ShooterSubsystem::ToggleShooterWheel(bool state)
-{
-	shootingWheelEnabled = state;
-}
-
 //Sets shooter wheel RPM setpoint for PID Controller
 void ShooterSubsystem::SetSpeed(float speed)
 {
-	//If shooting is true set speed to passed setpoint, otherwise set the shooter wheel to 0 RPM.
-	shootLoop.SetSetpoint((shootingWheelEnabled) ? speed : (0.0f));
+	shootLoop.SetSetpoint(speed);
 }
 
 //Toggles the disk feed solenoid between shooting (True) and feeding (False)
 void ShooterSubsystem::SetFire(bool fire)
 {
 	shootSolenoid.Set(fire);
-	
 }
 
 bool ShooterSubsystem::Jiggly()
@@ -97,24 +89,23 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 	static unsigned int shots_fired = 0;
 	static bool triggered_shot = false;
 	cout << g_timer.Get() << " " << shots_fired << " " << triggered_shot << " " << shootLoop.OnTarget() << endl;
-	if (shots_fired < shots_fire)
-		if (shootLoop.OnTarget() && !triggered_shot)
+	if (shots_fired < shots_fire && !triggered_shot)
+		if (shootLoop.OnTarget())
 		{
 			SetFire(triggered_shot = true);
 			g_timer.Start();
 		}
-	else
+	if (shots_fired >= shots_fire)
 	{
 		shots_fired = 0;
-		g_timer.Reset();
 		g_timer.Stop();
 		triggered_shot = false;
 		SetFire(false);
 		return true;
 	}
-	if (g_timer.HasPeriodPassed(0.25f))
+	if (triggered_shot && g_timer.Get() > 0.25f)
 		SetFire(false);
-	if (g_timer.HasPeriodPassed(1.0f))
+	if (triggered_shot && g_timer.Get() > 1.0f)
 	{
 		triggered_shot = false;
 		++shots_fired;
@@ -127,7 +118,8 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 //Debug console for ShooterSubsystem. Contains PID Tuning Code.
 void ShooterSubsystem::Debug()
 {
-	if(debug_console_delay_counter > 10)
+	std::cout << (30.0f / shootEncoder.GetPeriod()) << " " << g_timer.Get() << std::endl;
+	/*if(debug_console_delay_counter > 10)
 	{
 	std::cout << "Motor Speed: " << shootMotor.Get() << " || Shooter Speed: " << PIDGet() << " || Shoot Solenoid: " << shootSolenoid.Get() << std::endl;
 	std::cout << "Shoot Setpoint: " << shootLoop.GetSetpoint() << " || Autofire button: " << CommandBase::oi->GetAutoFire() << " || Autofire bool:" << std::endl;
@@ -135,7 +127,7 @@ void ShooterSubsystem::Debug()
 	debug_console_delay_counter=0;
 	}
 	else
-		debug_console_delay_counter++;
+		debug_console_delay_counter++;*/
 	/*if (CommandBase::oi->GetTest1() && !derp)
 		p += 0.0001f;
 	if (CommandBase::oi->GetTest2() && !derp)

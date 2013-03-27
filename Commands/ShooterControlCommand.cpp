@@ -14,27 +14,26 @@ void ShooterControlCommand::Initialize()
  
 void ShooterControlCommand::Execute()
 {
+
 	////////////////////////////
 	// Shooter Tilt/Fire Code //
 	////////////////////////////
 
 	shootersubsystem->SetTilt(!oi->GetShooterTilt());
-	if ((oi->GetFire() || oi->GetAutoFire() || oi->GetStart() || oi->GetShootLeftBumper()) && !m_buttonlatch)
+	if ((oi->GetStart() || oi->GetShootLeftBumper()) && !m_buttonlatch)
 	{
-		m_buttonlatch = true;
-		
 		if(oi->GetStart())
 			setpoint += 100;
 		if(oi->GetShootLeftBumper() && setpoint > 3000)
 			setpoint -= 100;
 		
-		if (oi->GetAutoFire())
-			shootersubsystem->ShootDiscs(100);
-		else
-			shootersubsystem->SetFire(oi->GetFire());
 	}
+	m_buttonlatch = (oi->GetStart() || oi->GetShootLeftBumper());
+
+	if (oi->GetAutoFire())
+		shootersubsystem->ShootDiscs(3);
 	else
-		m_buttonlatch = false;
+		shootersubsystem->SetFire(oi->GetFire());
 
 	///////////////////////////////////
 	// End of Shooter Tilt/Fire Code //
