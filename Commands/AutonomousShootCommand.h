@@ -6,10 +6,10 @@
 class AutonomousShootCommand: public CommandBase
 {
 private:
-	bool latch_1, latch_2, latch_3;
-	Timer delayTimer;
+	bool latch;
+	int discs;
 public:
-  AutonomousShootCommand();
+  AutonomousShootCommand(int discs);
   virtual void Initialize();
   virtual void Execute();
   virtual bool IsFinished();

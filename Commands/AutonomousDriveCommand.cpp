@@ -1,31 +1,35 @@
 #include "AutonomousDriveCommand.h"
 
-AutonomousDriveCommand::AutonomousDriveCommand() {
-	// Use requires() here to declare subsystem dependencies
-	// eg. requires(chassis);
+AutonomousDriveCommand::AutonomousDriveCommand(double seconds, float speed, float turn)
+	: latch(false), delayTimer(), seconds(seconds), speed(speed), turn(turn)
+{
+	Requires(drivetrainsubsystem);
 }
 
-// Called just before this Command runs the first time
-void AutonomousDriveCommand::Initialize() {
-	
+void AutonomousDriveCommand::Initialize()
+{
+	delayTimer.Reset();
+	delayTimer.Start();
+	drivetrainsubsystem->Drive(speed, turn);
 }
 
-// Called repeatedly when this Command is scheduled to run
-void AutonomousDriveCommand::Execute() {
-	
+void AutonomousDriveCommand::Execute()
+{
 }
 
-// Make this return true when this Command no longer needs to run execute()
-bool AutonomousDriveCommand::IsFinished() {
-	return false;
+bool AutonomousDriveCommand::IsFinished()
+{
+	return delayTimer.HasPeriodPassed(seconds);
 }
 
-// Called once after isFinished returns true
-void AutonomousDriveCommand::End() {
-	
+void AutonomousDriveCommand::End()
+{
+	drivetrainsubsystem->Drive(0.0f, 0.0f);
+	delayTimer.Stop();
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
-void AutonomousDriveCommand::Interrupted() {
+void AutonomousDriveCommand::Interrupted()
+{
+	delayTimer.Reset();
+	delayTimer.Stop();
 }

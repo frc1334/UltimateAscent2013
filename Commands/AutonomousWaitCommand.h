@@ -1,17 +1,15 @@
-#ifndef AUTONOMOUSDRIVECOMMAND_H
-#define AUTONOMOUSDRIVECOMMAND_H
+#ifndef AUTONOMOUSWAITCOMMAND_H
+#define AUTONOMOUSWAITCOMMAND_H
 
 #include "../CommandBase.h"
 
-class AutonomousDriveCommand: public CommandBase
+class AutonomousWaitCommand: public CommandBase
 {
 private:
-	bool latch;
 	Timer delayTimer;
 	double seconds;
-	float speed, turn;
 public:
-	AutonomousDriveCommand(double seconds, float speed, float turn);
+	AutonomousWaitCommand(double seconds);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

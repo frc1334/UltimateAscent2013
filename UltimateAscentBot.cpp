@@ -1,10 +1,12 @@
 #include "WPILib.h"
 #include "CommandBase.h"
 #include "RobotMap.h"
-#include "Commands/AutonomousShootCommand.h"
+#include "Commands/AutonomousCommandGroup.h"
 
 class UltimateAscentBot : public IterativeRobot
 {
+public:
+	static bool AllowFalling;
 private:
 	Command *autonomousCommand;
 	Compressor *compressor;
@@ -13,7 +15,7 @@ private:
   {
     CommandBase::init();
     SmartDashboard::init();
-    autonomousCommand = new AutonomousShootCommand();
+    autonomousCommand = new AutonomousCommandGroup();
     compressor = new Compressor(COMPRESSOR_SWITCH, COMPRESSOR_RELAY);
     compressor->Start();
   }
@@ -38,5 +40,7 @@ private:
 	  Scheduler::GetInstance()->Run();
   }
 };
+
+bool UltimateAscentBot::AllowFalling = false;
 
 START_ROBOT_CLASS(UltimateAscentBot);
