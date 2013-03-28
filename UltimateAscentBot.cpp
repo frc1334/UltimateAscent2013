@@ -41,6 +41,6 @@ private:
   }
 };
 
-bool UltimateAscentBot::AllowFalling = false;
+bool UltimateAscentBot::AllowFalling = false; // should keep the robot from falling off the pyramid
 
 START_ROBOT_CLASS(UltimateAscentBot);

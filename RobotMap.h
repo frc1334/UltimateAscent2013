@@ -1,7 +1,6 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
-
 /**
 * The RobotMap is a mapping from the ports sensors and actuators are wired into
 * to a variable name. This provides flexibility changing wiring, makes checking
@@ -29,5 +28,10 @@
 #define TILT_LIMIT_SWITCH_TOP		2
 #define COMPRESSOR_SWITCH			1
 #define COMPRESSOR_RELAY			1
+
+#define AUTONOMOUS_MODE1			11
+#define AUTONOMOUS_MODE2			12
+#define AUTONOMOUS_MODE3			13
+#define AUTONOMOUS_MODE4			14
 
 #endif
