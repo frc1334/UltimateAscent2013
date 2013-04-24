@@ -116,7 +116,7 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 
 //Debug console for ShooterSubsystem. Contains PID Tuning Code.
 void ShooterSubsystem::Debug()
-{
+{/*
 	derp = false;
 	std::cout << (30.0f / shootEncoder.GetPeriod()) << " " << g_timer.Get() << std::endl;
 	if(debug_console_delay_counter > 10)
@@ -161,6 +161,6 @@ void ShooterSubsystem::Debug()
 	}
 	
 	derp = CommandBase::oi->GetTest1() || CommandBase::oi->GetTest2() || CommandBase::oi->GetTest3() || CommandBase::oi->GetTest4() || CommandBase::oi->GetTest5() || CommandBase::oi->GetTest6();
-
+	*/
 	//std::cout << "===========" << std::endl;
 }
