@@ -16,7 +16,9 @@ private:
   PIDController shootLoop;
   Solenoid shootSolenoid, tiltSolenoid;
   int debug_console_delay_counter;
+  bool derp;
   Timer g_timer;
+  float p, i, d;
 public:
   ShooterSubsystem();
   void InitDefaultCommand();

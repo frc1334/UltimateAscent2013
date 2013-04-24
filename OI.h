@@ -1,4 +1,4 @@
-//#define DEBUG_CONSOLE // comment out to remove consoling
+#define DEBUG_CONSOLE // comment out to remove consoling
 
 #ifndef OI_H
 #define OI_H
@@ -45,7 +45,7 @@ public:
 
   ////////////////////////
   // DEBUG JOYSTICK (3) //
-  ////////////////////////  
+  ////////////////////////
   inline bool GetTest1() { return Joystick_Test.GetRawButton(1); }
   inline bool GetTest2() { return Joystick_Test.GetRawButton(2); }
   inline bool GetTest3() { return Joystick_Test.GetRawButton(3); }

@@ -4,7 +4,7 @@
 
 ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
  shootMotor(SHOOT_MOTOR), shootEncoder(SHOOT_ENCODER), shootLoop(shootP, shootI, shootD, this, this),
- shootSolenoid(SHOOT_SOLENOID), tiltSolenoid(SHOOT_TILT_SOLENOID), g_timer()
+ shootSolenoid(SHOOT_SOLENOID), tiltSolenoid(SHOOT_TILT_SOLENOID), derp(false), g_timer(), p(shootP), i(shootI), d(shootD)
 {
 	shootLoop.SetInputRange(0.0f, 7000.0f);	//LIMIT SHOOTER WHEEL TO 0-7000 RPM
 	shootLoop.SetOutputRange(0.0f, 1.0f);	//LIMIT SHOOTER WHEEL TO ONLY DRIVE FORWARD
@@ -12,11 +12,11 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem"),
 	shootEncoder.Reset();					
 	shootEncoder.SetMaxPeriod(1.0f);		
 	shootEncoder.Start();
-	shootLoop.SetAbsoluteTolerance(250.0f);			//SHOOTER WHEEL RPM TOLERANCE is 200 RPM
+	shootLoop.SetAbsoluteTolerance(50.0f);			//SHOOTER WHEEL RPM TOLERANCE is 200 RPM
 	shootLoop.Enable();						//ENABLE SHOOTER WHEEL PID LOOP
-#ifdef DEBUG_CONSOLE
+//#ifdef DEBUG_CONSOLE
 	debug_console_delay_counter = 0;
-#endif
+//#endif
 	g_timer.Reset();
 	g_timer.Stop();
 }
@@ -88,7 +88,6 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 {
 	static unsigned int shots_fired = 0;
 	static bool triggered_shot = false;
-	cout << g_timer.Get() << " " << shots_fired << " " << triggered_shot << " " << shootLoop.OnTarget() << endl;
 	if (shots_fired < shots_fire && !triggered_shot)
 		if (shootLoop.OnTarget())
 		{
@@ -105,7 +104,7 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 	}
 	if (triggered_shot && g_timer.Get() > 0.25f)
 		SetFire(false);
-	if (triggered_shot && g_timer.Get() > 1.0f)
+	if (triggered_shot && g_timer.Get() > 0.5f)
 	{
 		triggered_shot = false;
 		++shots_fired;
@@ -118,31 +117,50 @@ bool ShooterSubsystem::ShootDiscs(unsigned int shots_fire)
 //Debug console for ShooterSubsystem. Contains PID Tuning Code.
 void ShooterSubsystem::Debug()
 {
+	derp = false;
 	std::cout << (30.0f / shootEncoder.GetPeriod()) << " " << g_timer.Get() << std::endl;
-	/*if(debug_console_delay_counter > 10)
+	if(debug_console_delay_counter > 10)
 	{
-	std::cout << "Motor Speed: " << shootMotor.Get() << " || Shooter Speed: " << PIDGet() << " || Shoot Solenoid: " << shootSolenoid.Get() << std::endl;
-	std::cout << "Shoot Setpoint: " << shootLoop.GetSetpoint() << " || Autofire button: " << CommandBase::oi->GetAutoFire() << " || Autofire bool:" << std::endl;
-	std::cout << " ============= " << std::endl;
+		//std::cout << shootMotor.Get() << std::endl;
+	//std::cout << "Motor Speed: " << shootMotor.Get() << " || Shooter Speed: " << PIDGet() << " || Shoot Solenoid: " << shootSolenoid.Get() << std::endl;
+	//std::cout << "Shoot Setpoint: " << shootLoop.GetSetpoint() << " || Autofire button: " << CommandBase::oi->GetAutoFire() << " || Autofire bool:" << std::endl;
+	//std::cout << " ============= " << std::endl;
 	debug_console_delay_counter=0;
 	}
 	else
-		debug_console_delay_counter++;*/
-	/*if (CommandBase::oi->GetTest1() && !derp)
+		debug_console_delay_counter++;
+	if (CommandBase::oi->GetTest1() && !derp)
+	{
 		p += 0.0001f;
+		shootLoop.SetPID(p, i, d);
+	}
 	if (CommandBase::oi->GetTest2() && !derp)
+	{
 		p -= 0.0001f;
+		shootLoop.SetPID(p, i, d);
+	}
 	if (CommandBase::oi->GetTest5() && !derp)
+	{
 		i += 0.0001f;
+		shootLoop.SetPID(p, i, d);
+	}
 	if (CommandBase::oi->GetTest6() && !derp)
+	{
 		i -= 0.0001f;
+		shootLoop.SetPID(p, i, d);
+	}
 	if (CommandBase::oi->GetTest3() && !derp)
+	{
 		d += 0.0001f;
+		shootLoop.SetPID(p, i, d);
+	}
 	if (CommandBase::oi->GetTest4() && !derp)
+	{
 		d -= 0.0001f;
+		shootLoop.SetPID(p, i, d);
+	}
 	
 	derp = CommandBase::oi->GetTest1() || CommandBase::oi->GetTest2() || CommandBase::oi->GetTest3() || CommandBase::oi->GetTest4() || CommandBase::oi->GetTest5() || CommandBase::oi->GetTest6();
 
-	}
-	std::cout << "===========" << std::endl;*/
+	//std::cout << "===========" << std::endl;
 }
