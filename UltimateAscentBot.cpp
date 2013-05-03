@@ -6,7 +6,7 @@
 class UltimateAscentBot : public IterativeRobot
 {
 public:
-	static bool AllowFalling;
+	static bool AllowFalling, IsSmiling;
 private:
 	Command *autonomousCommand;
 	Compressor *compressor;
@@ -42,5 +42,7 @@ private:
 };
 
 bool UltimateAscentBot::AllowFalling = false; // should keep the robot from falling off the pyramid
+
+bool UltimateAscentBot::IsSmiling = true; // Jebediah is always smiling
 
 START_ROBOT_CLASS(UltimateAscentBot);
